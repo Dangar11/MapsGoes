@@ -10,6 +10,7 @@
 		DD1BA47B23C7C14B0062BD40 /* MapViewController+UserLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1BA47A23C7C14B0062BD40 /* MapViewController+UserLocation.swift */; };
 		DD1BA47E23C7C9E90062BD40 /* Khmelnitskyi.gpx in Resources */ = {isa = PBXBuildFile; fileRef = DD1BA47D23C7C9E90062BD40 /* Khmelnitskyi.gpx */; };
 		DD1BA48023C7CA300062BD40 /* Lviv.gpx in Resources */ = {isa = PBXBuildFile; fileRef = DD1BA47F23C7CA300062BD40 /* Lviv.gpx */; };
+		DD1BA48223C7CE3F0062BD40 /* CustomMapItemAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1BA48123C7CE3F0062BD40 /* CustomMapItemAnnotation.swift */; };
 		DD5D255123C745E6000EFD1E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5D255023C745E6000EFD1E /* AppDelegate.swift */; };
 		DD5D255323C745E6000EFD1E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5D255223C745E6000EFD1E /* SceneDelegate.swift */; };
 		DD5D255523C745E6000EFD1E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5D255423C745E6000EFD1E /* ContentView.swift */; };
@@ -27,6 +28,7 @@
 		DD1BA47A23C7C14B0062BD40 /* MapViewController+UserLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapViewController+UserLocation.swift"; sourceTree = "<group>"; };
 		DD1BA47D23C7C9E90062BD40 /* Khmelnitskyi.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Khmelnitskyi.gpx; sourceTree = "<group>"; };
 		DD1BA47F23C7CA300062BD40 /* Lviv.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Lviv.gpx; sourceTree = "<group>"; };
+		DD1BA48123C7CE3F0062BD40 /* CustomMapItemAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMapItemAnnotation.swift; sourceTree = "<group>"; };
 		DD5D254D23C745E6000EFD1E /* MapsGoes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapsGoes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD5D255023C745E6000EFD1E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DD5D255223C745E6000EFD1E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				DD5D256B23C77E93000EFD1E /* MKMapExtension.swift */,
+				DD1BA48123C7CE3F0062BD40 /* CustomMapItemAnnotation.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -221,6 +224,7 @@
 				DD5D255123C745E6000EFD1E /* AppDelegate.swift in Sources */,
 				DD5D256F23C7AA89000EFD1E /* LocationCarouselController.swift in Sources */,
 				DD5D255323C745E6000EFD1E /* SceneDelegate.swift in Sources */,
+				DD1BA48223C7CE3F0062BD40 /* CustomMapItemAnnotation.swift in Sources */,
 				DD5D257123C7AADC000EFD1E /* LocationCell.swift in Sources */,
 				DD5D256C23C77E93000EFD1E /* MKMapExtension.swift in Sources */,
 				DD5D255523C745E6000EFD1E /* ContentView.swift in Sources */,

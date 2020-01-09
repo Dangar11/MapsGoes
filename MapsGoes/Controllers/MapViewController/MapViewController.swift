@@ -119,9 +119,10 @@ class MapViewController: UIViewController {
         print(mapItem.address())
         
         
-         let annotation = MKPointAnnotation()
+         let annotation = CustomMapItemAnnotation()
+        annotation.mapItem = mapItem
          annotation.coordinate = mapItem.placemark.coordinate
-         annotation.title = mapItem.name
+         annotation.title = "Location: \(mapItem.name ?? "")"
          self.mapView.addAnnotation(annotation)
         
         //fill the carousel items array with mapItems from Search
@@ -154,6 +155,17 @@ extension MapViewController: MKMapViewDelegate {
     return nil
   }
   
+  
+  func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+    
+    guard let customAnnotation = view.annotation as? CustomMapItemAnnotation else { return }
+    
+    //calculate pin selected index
+    guard let index = self.locationController.items.firstIndex(where: { $0.name == customAnnotation.mapItem?.name}) else { return }
+    
+    self.locationController.collectionView.scrollToItem(at: [0, index], at: .centeredHorizontally, animated: true)
+    
+  }
   
 }
 
