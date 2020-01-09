@@ -13,6 +13,8 @@ import Combine
 
 class MainController: UIViewController {
   
+  let locationController = LocationCarouselController(scrollDirection: .horizontal)
+  
   let mapView = MKMapView()
   
   var textFieldNotification: AnyCancellable?
@@ -33,7 +35,16 @@ class MainController: UIViewController {
 
     performLocalSearch()
     setupSearchUI()
+    setupLocationCarousel()
   
+  }
+  
+  fileprivate func setupLocationCarousel() {
+    
+    guard let locationView = locationController.view else { return }
+    
+    view.addSubview(locationView)
+    locationView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, size: .init(width: 0, height: 150))
   }
   
   fileprivate func setupSearchUI() {
