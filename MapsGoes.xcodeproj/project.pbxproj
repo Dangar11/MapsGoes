@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		DD1BA47B23C7C14B0062BD40 /* MapViewController+UserLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1BA47A23C7C14B0062BD40 /* MapViewController+UserLocation.swift */; };
+		DD1BA47E23C7C9E90062BD40 /* Khmelnitskyi.gpx in Resources */ = {isa = PBXBuildFile; fileRef = DD1BA47D23C7C9E90062BD40 /* Khmelnitskyi.gpx */; };
+		DD1BA48023C7CA300062BD40 /* Lviv.gpx in Resources */ = {isa = PBXBuildFile; fileRef = DD1BA47F23C7CA300062BD40 /* Lviv.gpx */; };
 		DD5D255123C745E6000EFD1E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5D255023C745E6000EFD1E /* AppDelegate.swift */; };
 		DD5D255323C745E6000EFD1E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5D255223C745E6000EFD1E /* SceneDelegate.swift */; };
 		DD5D255523C745E6000EFD1E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5D255423C745E6000EFD1E /* ContentView.swift */; };
@@ -23,6 +25,8 @@
 
 /* Begin PBXFileReference section */
 		DD1BA47A23C7C14B0062BD40 /* MapViewController+UserLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapViewController+UserLocation.swift"; sourceTree = "<group>"; };
+		DD1BA47D23C7C9E90062BD40 /* Khmelnitskyi.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Khmelnitskyi.gpx; sourceTree = "<group>"; };
+		DD1BA47F23C7CA300062BD40 /* Lviv.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Lviv.gpx; sourceTree = "<group>"; };
 		DD5D254D23C745E6000EFD1E /* MapsGoes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapsGoes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD5D255023C745E6000EFD1E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DD5D255223C745E6000EFD1E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -58,6 +62,15 @@
 			path = MapViewController;
 			sourceTree = "<group>";
 		};
+		DD1BA47C23C7C8CB0062BD40 /* GPX Location */ = {
+			isa = PBXGroup;
+			children = (
+				DD1BA47D23C7C9E90062BD40 /* Khmelnitskyi.gpx */,
+				DD1BA47F23C7CA300062BD40 /* Lviv.gpx */,
+			);
+			path = "GPX Location";
+			sourceTree = "<group>";
+		};
 		DD5D254423C745E6000EFD1E = {
 			isa = PBXGroup;
 			children = (
@@ -77,6 +90,7 @@
 		DD5D254F23C745E6000EFD1E /* MapsGoes */ = {
 			isa = PBXGroup;
 			children = (
+				DD1BA47C23C7C8CB0062BD40 /* GPX Location */,
 				DD5D256D23C7AA58000EFD1E /* Views */,
 				DD5D256A23C77E76000EFD1E /* Extension */,
 				DD5D256423C747C1000EFD1E /* Controllers */,
@@ -189,6 +203,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD5D255D23C745E9000EFD1E /* LaunchScreen.storyboard in Resources */,
+				DD1BA47E23C7C9E90062BD40 /* Khmelnitskyi.gpx in Resources */,
+				DD1BA48023C7CA300062BD40 /* Lviv.gpx in Resources */,
 				DD5D255A23C745E9000EFD1E /* Preview Assets.xcassets in Resources */,
 				DD5D255723C745E9000EFD1E /* Assets.xcassets in Resources */,
 			);
