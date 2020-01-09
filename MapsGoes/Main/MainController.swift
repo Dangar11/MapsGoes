@@ -25,21 +25,86 @@ class MainController: UIViewController {
     mapView.fillSuperview()
     
     setupRegionForMap()
-    setupAnnotationsForMap()
+    
+
+    performLocalSearch()
   
   }
   
   
+ 
+  
   fileprivate func setupRegionForMap() {
     let centerCoordinate = CLLocationCoordinate2D(latitude: 49.420382, longitude: 26.988605)
-    let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+    let span = MKCoordinateSpan(latitudeDelta: 1.0, longitudeDelta: 1.0)
     let region = MKCoordinateRegion(center: centerCoordinate, span: span)
     mapView.setRegion(region, animated: true)
     
   }
   
+  fileprivate func performLocalSearch() {
+     let request = MKLocalSearch.Request()
+     request.naturalLanguageQuery = "ресторан"
+     request.region = mapView.region
+     let localSearch = MKLocalSearch(request: request)
+     localSearch.start { (response, error) in
+       //Error
+       if let error = error {
+         print("Failed local search:", error)
+         return
+       }
+       
+       //Success
+       response?.mapItems.forEach({ (mapItem) in
+//        print(mapItem.placemark.subThoroughfare ?? "")
+        
+        
+        let placemark = mapItem.placemark
+        
+        //transform to fullAddress
+        let fullAddresses = self.fullAddress(placemark: placemark)
+        
+
+        print(fullAddresses)
+        
+        
+         let annotation = MKPointAnnotation()
+         annotation.coordinate = mapItem.placemark.coordinate
+         annotation.title = mapItem.name
+         self.mapView.addAnnotation(annotation)
+       })
+      self.mapView.showAnnotations(self.mapView.annotations, animated: true)
+     }
+   }
+  
+  
+  fileprivate func fullAddress(placemark: MKPlacemark) -> String {
+    var addressString = ""
+    
+    if placemark.thoroughfare != nil {
+      addressString = placemark.thoroughfare! + " "
+    }
+    if placemark.subThoroughfare != nil {
+      addressString += placemark.subThoroughfare! + ", "
+    }
+    if placemark.postalCode != nil {
+      addressString += placemark.postalCode! + " "
+    }
+    if placemark.locality != nil {
+      addressString += placemark.locality! + ", "
+    }
+    if placemark.administrativeArea != nil {
+      addressString += placemark.administrativeArea! + " "
+    }
+    if placemark.country != nil {
+             addressString += placemark.country!
+           }
+    
+    return addressString
+  }
   
   fileprivate func setupAnnotationsForMap() {
+    
     let annotation = MKPointAnnotation()
     annotation.coordinate = CLLocationCoordinate2D(latitude: 49.420382, longitude: 26.988605)
     annotation.title = "Restuarant Shpigell"
@@ -65,7 +130,7 @@ extension MainController: MKMapViewDelegate {
     
     let annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "id")
     annotationView.canShowCallout = true
-    annotationView.image = #imageLiteral(resourceName: "tourist")
+//    annotationView.image = #imageLiteral(resourceName: "tourist")
     return annotationView
     
   }
