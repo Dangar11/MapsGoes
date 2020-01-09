@@ -9,11 +9,15 @@
 import UIKit
 import MapKit
 import LBTATools
+import Combine
 
 class MainController: UIViewController {
   
   let mapView = MKMapView()
   
+  var textFieldNotification: AnyCancellable?
+  
+  let searchTextField = UITextField(placeholder: "Search query")
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -28,10 +32,37 @@ class MainController: UIViewController {
     
 
     performLocalSearch()
+    setupSearchUI()
   
   }
   
+  fileprivate func setupSearchUI() {
+    
+    let whiteContainer = UIView(backgroundColor: .white)
+    view.addSubview(whiteContainer)
+    whiteContainer.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                          leading: view.leadingAnchor,
+                          bottom: nil,
+                          trailing: view.trailingAnchor, padding: .init(top: 0, left: 16, bottom: 0, right: 16), size: .init(width: 0, height: 50))
+    whiteContainer.stack(searchTextField).withMargins(.allSides(16))
+    
+    
+    //Combine
+    //search on the last keystroke of text change and basically wait 500 millisecond
+    
+    self.textFieldNotification = NotificationCenter.default
+      .publisher(for: UITextField.textDidChangeNotification, object: searchTextField)
+      .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
+      .sink { (_) in
+        self.performLocalSearch()
+    }
+  }
   
+  
+  
+  @objc fileprivate func handleSearchChanges() {
+    performLocalSearch()
+  }
  
   
   fileprivate func setupRegionForMap() {
@@ -44,7 +75,7 @@ class MainController: UIViewController {
   
   fileprivate func performLocalSearch() {
      let request = MKLocalSearch.Request()
-     request.naturalLanguageQuery = "ресторан"
+    request.naturalLanguageQuery = searchTextField.text
      request.region = mapView.region
      let localSearch = MKLocalSearch(request: request)
      localSearch.start { (response, error) in
@@ -55,17 +86,13 @@ class MainController: UIViewController {
        }
        
        //Success
+      //remove old annotations
+      self.mapView.removeAnnotations(self.mapView.annotations)
+      
        response?.mapItems.forEach({ (mapItem) in
-//        print(mapItem.placemark.subThoroughfare ?? "")
-        
-        
-        let placemark = mapItem.placemark
         
         //transform to fullAddress
-        let fullAddresses = self.fullAddress(placemark: placemark)
-        
-
-        print(fullAddresses)
+        print(mapItem.address())
         
         
          let annotation = MKPointAnnotation()
@@ -78,30 +105,7 @@ class MainController: UIViewController {
    }
   
   
-  fileprivate func fullAddress(placemark: MKPlacemark) -> String {
-    var addressString = ""
-    
-    if placemark.thoroughfare != nil {
-      addressString = placemark.thoroughfare! + " "
-    }
-    if placemark.subThoroughfare != nil {
-      addressString += placemark.subThoroughfare! + ", "
-    }
-    if placemark.postalCode != nil {
-      addressString += placemark.postalCode! + " "
-    }
-    if placemark.locality != nil {
-      addressString += placemark.locality! + ", "
-    }
-    if placemark.administrativeArea != nil {
-      addressString += placemark.administrativeArea! + " "
-    }
-    if placemark.country != nil {
-             addressString += placemark.country!
-           }
-    
-    return addressString
-  }
+
   
   fileprivate func setupAnnotationsForMap() {
     
