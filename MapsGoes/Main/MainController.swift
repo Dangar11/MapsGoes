@@ -22,9 +22,44 @@ class MainController: UIViewController {
     
     //Using LBTATools for contstaints mapView to all edges
     mapView.fillSuperview()
-    mapView.mapType = .satellite
+    
+    setupRegionForMap()
     
   
   }
   
+  
+  fileprivate func setupRegionForMap() {
+    let centerCoordinate = CLLocationCoordinate2D(latitude: 49.420382, longitude: 26.988605)
+    let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+    let region = MKCoordinateRegion(center: centerCoordinate, span: span)
+    mapView.setRegion(region, animated: true)
+  }
+  
+}
+
+
+//SwiftUI Preview
+import SwiftUI
+
+//Preview containerView
+struct MainPreview: PreviewProvider {
+  static var previews: some View {
+    ContainerView().edgesIgnoringSafeArea(.all)
+  }
+  
+  //Make container view for Controller
+  struct ContainerView: UIViewControllerRepresentable {
+    func makeUIViewController(context: UIViewControllerRepresentableContext<MainPreview.ContainerView>) -> MainController {
+      return MainController()
+    }
+    
+    func updateUIViewController(_ uiViewController: MainController, context: UIViewControllerRepresentableContext<MainPreview.ContainerView>) {
+      
+    }
+    
+    typealias UIViewControllerType = MainController
+    
+    
+  }
 }
