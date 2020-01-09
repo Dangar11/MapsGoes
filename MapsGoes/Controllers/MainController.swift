@@ -36,6 +36,7 @@ class MainController: UIViewController {
     performLocalSearch()
     setupSearchUI()
     setupLocationCarousel()
+    locationController.mainController = self
   
   }
   
@@ -99,6 +100,7 @@ class MainController: UIViewController {
        //Success
       //remove old annotations
       self.mapView.removeAnnotations(self.mapView.annotations)
+      self.locationController.items.removeAll()
       
        response?.mapItems.forEach({ (mapItem) in
         
@@ -110,6 +112,11 @@ class MainController: UIViewController {
          annotation.coordinate = mapItem.placemark.coordinate
          annotation.title = mapItem.name
          self.mapView.addAnnotation(annotation)
+        
+        //fill the carousel items array with mapItems from Search
+        self.locationController.items.append(mapItem)
+        //scroll carousel to the initial pozition
+        self.locationController.collectionView.scrollToItem(at: [0,0], at: .centeredHorizontally, animated: true)
        })
       self.mapView.showAnnotations(self.mapView.annotations, animated: true)
      }

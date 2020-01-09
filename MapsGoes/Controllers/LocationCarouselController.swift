@@ -8,10 +8,13 @@
 
 import UIKit
 import LBTATools
+import MapKit
 
 
-class LocationCarouselController: LBTAListController<LocationCell, String> {
+class LocationCarouselController: LBTAListController<LocationCell, MKMapItem> {
   
+  
+  weak var mainController: MainController?
   
   let pickingSizeContent:CGFloat = 64
 
@@ -20,9 +23,28 @@ class LocationCarouselController: LBTAListController<LocationCell, String> {
     
     collectionView.clipsToBounds = false
     collectionView.backgroundColor = .clear
-    self.items = ["1", "2", "3"]
     
   }
+  
+  
+  
+  override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    print(self.items[indexPath.item].placemark.coordinate)
+    let annotations = mainController?.mapView.annotations
+    let selectedAnnotation = items[indexPath.item].placemark.name
+    //compare selected annotation with annotation showing in the map and move to selected one
+    
+    annotations?.forEach({ (annotation) in
+      if annotation.title == selectedAnnotation {
+        mainController?.mapView.selectAnnotation(annotation, animated: true)
+      }
+    })
+    
+    collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+  }
+  
+  
+  
   
 }
 
@@ -41,5 +63,7 @@ extension LocationCarouselController: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
     return 12
   }
+  
+  
   
 }
