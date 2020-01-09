@@ -11,34 +11,45 @@ import MapKit
 import LBTATools
 import Combine
 
-class MainController: UIViewController {
+class MapViewController: UIViewController {
+  
+  
+  //MARK: - Properties
   
   let locationController = LocationCarouselController(scrollDirection: .horizontal)
   
   let mapView = MKMapView()
   
+  let locationManager = CLLocationManager()
+  
+  //Combine framework
   var textFieldNotification: AnyCancellable?
   
   let searchTextField = UITextField(placeholder: "Search query")
   
+  
+  //MARK: - View Lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
     
     view.addSubview(mapView)
     mapView.delegate = self
-    
+    mapView.showsUserLocation = true
     //Using LBTATools for contstaints mapView to all edges
     mapView.fillSuperview()
     
-    setupRegionForMap()
     
-
+    requestUserLocation()
+    
+    setupRegionForMap()
     performLocalSearch()
     setupSearchUI()
     setupLocationCarousel()
     locationController.mainController = self
   
   }
+  
+  //MARK: - Functionality
   
   fileprivate func setupLocationCarousel() {
     
@@ -123,44 +134,32 @@ class MainController: UIViewController {
    }
   
   
-
-  
-  fileprivate func setupAnnotationsForMap() {
-    
-    let annotation = MKPointAnnotation()
-    annotation.coordinate = CLLocationCoordinate2D(latitude: 49.420382, longitude: 26.988605)
-    annotation.title = "Restuarant Shpigell"
-    annotation.subtitle = "The Best Restaurant"
-    mapView.addAnnotation(annotation)
-    
-    let myHomeAnnotation = MKPointAnnotation()
-    myHomeAnnotation.coordinate = CLLocationCoordinate2D(latitude: 49.442608, longitude: 26.995859)
-    myHomeAnnotation.title = "My Home"
-    myHomeAnnotation.subtitle = "The best place in the world"
-    mapView.addAnnotation(myHomeAnnotation)
-    
-    mapView.showAnnotations(self.mapView.annotations, animated: true)
-    
-  }
-  
   
 }
 
-extension MainController: MKMapViewDelegate {
+
+
+
+//MARK: - MKMapViewDelegate
+extension MapViewController: MKMapViewDelegate {
   
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
     
-    let annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "id")
-    annotationView.canShowCallout = true
-//    annotationView.image = #imageLiteral(resourceName: "tourist")
-    return annotationView
-    
+    // Check for blue dot userLocation 
+    if (annotation is MKPointAnnotation) {
+      let annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "id")
+      annotationView.canShowCallout = true
+      return annotationView
+    }
+    return nil
   }
   
   
 }
 
 
+
+//MARK: - SwiftUI - Preview
 
 //SwiftUI Preview
 import SwiftUI
@@ -173,15 +172,15 @@ struct MainPreview: PreviewProvider {
   
   //Make container view for Controller
   struct ContainerView: UIViewControllerRepresentable {
-    func makeUIViewController(context: UIViewControllerRepresentableContext<MainPreview.ContainerView>) -> MainController {
-      return MainController()
+    func makeUIViewController(context: UIViewControllerRepresentableContext<MainPreview.ContainerView>) -> MapViewController {
+      return MapViewController()
     }
     
-    func updateUIViewController(_ uiViewController: MainController, context: UIViewControllerRepresentableContext<MainPreview.ContainerView>) {
+    func updateUIViewController(_ uiViewController: MapViewController, context: UIViewControllerRepresentableContext<MainPreview.ContainerView>) {
       
     }
     
-    typealias UIViewControllerType = MainController
+    typealias UIViewControllerType = MapViewController
     
     
   }

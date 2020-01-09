@@ -14,7 +14,7 @@ import MapKit
 class LocationCarouselController: LBTAListController<LocationCell, MKMapItem> {
   
   
-  weak var mainController: MainController?
+  weak var mainController: MapViewController?
   
   let pickingSizeContent:CGFloat = 64
 
