@@ -19,12 +19,13 @@ class MainController: UIViewController {
     super.viewDidLoad()
     
     view.addSubview(mapView)
+    mapView.delegate = self
     
     //Using LBTATools for contstaints mapView to all edges
     mapView.fillSuperview()
     
     setupRegionForMap()
-    
+    setupAnnotationsForMap()
   
   }
   
@@ -34,9 +35,44 @@ class MainController: UIViewController {
     let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
     let region = MKCoordinateRegion(center: centerCoordinate, span: span)
     mapView.setRegion(region, animated: true)
+    
   }
   
+  
+  fileprivate func setupAnnotationsForMap() {
+    let annotation = MKPointAnnotation()
+    annotation.coordinate = CLLocationCoordinate2D(latitude: 49.420382, longitude: 26.988605)
+    annotation.title = "Restuarant Shpigell"
+    annotation.subtitle = "The Best Restaurant"
+    mapView.addAnnotation(annotation)
+    
+    let myHomeAnnotation = MKPointAnnotation()
+    myHomeAnnotation.coordinate = CLLocationCoordinate2D(latitude: 49.442608, longitude: 26.995859)
+    myHomeAnnotation.title = "My Home"
+    myHomeAnnotation.subtitle = "The best place in the world"
+    mapView.addAnnotation(myHomeAnnotation)
+    
+    mapView.showAnnotations(self.mapView.annotations, animated: true)
+    
+  }
+  
+  
 }
+
+extension MainController: MKMapViewDelegate {
+  
+  func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    
+    let annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "id")
+    annotationView.canShowCallout = true
+    annotationView.image = #imageLiteral(resourceName: "tourist")
+    return annotationView
+    
+  }
+  
+  
+}
+
 
 
 //SwiftUI Preview
