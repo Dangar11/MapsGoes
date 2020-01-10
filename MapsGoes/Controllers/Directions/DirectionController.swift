@@ -27,15 +27,17 @@ class DirectionController: UIViewController {
     setupNavBarUI()
     
     mapView.showsUserLocation = true
+    mapView.delegate = self
     
     setupStardEndDummyAnnotataion()
+    requestForDirections()
     
   }
   
   //MARK: - Functionality
   fileprivate func setupRegionForMap() {
     let centerCoordinate = CLLocationCoordinate2D(latitude: 49.420382, longitude: 26.988605)
-    let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+    let span = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
     let region = MKCoordinateRegion(center: centerCoordinate, span: span)
     mapView.setRegion(region, animated: true)
     
@@ -58,6 +60,43 @@ class DirectionController: UIViewController {
   }
   
   
+  fileprivate func requestForDirections() {
+    
+    let request = MKDirections.Request()
+    
+    let startingPlacemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: 49.420382, longitude: 26.988605))
+    
+    let endingPlacemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: 49.410400, longitude: 26.978805))
+    
+    //start point
+    request.source = .init(placemark: startingPlacemark)
+    //end point
+    request.destination = .init(placemark: endingPlacemark)
+    
+    request.requestsAlternateRoutes = true
+    
+    let directions = MKDirections(request: request)
+    directions.calculate { (response, error) in
+      if let error = error {
+        print("Unable to calculate route: ", error.localizedDescription)
+      }
+      
+      //Success
+      //Iterate throught routes and show alternate routes
+      response?.routes.forEach({ (route) in
+        //need to render in MKMapViewDelegate
+        
+        self.mapView.addOverlay(route.polyline)
+      })
+      
+      
+      
+      
+    }
+    
+  }
+  
+  
   //MARK: - UI
   
   fileprivate func setupNavBarUI() {
@@ -74,6 +113,23 @@ class DirectionController: UIViewController {
   }
   
   
+  
+}
+
+
+
+
+//MARK: - MKMapViewDelegate
+extension DirectionController: MKMapViewDelegate {
+  
+  //Render Polyline
+
+  func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+    let polylineRenderer = MKPolylineRenderer(overlay: overlay)
+    polylineRenderer.strokeColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+    polylineRenderer.lineWidth = 5
+    return polylineRenderer
+  }
   
 }
   
