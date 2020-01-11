@@ -23,21 +23,23 @@ class DirectionController: UIViewController {
   var startMapItem: MKMapItem?
   var endMapItem: MKMapItem?
   
+  var currentRoute: MKRoute?
+  
   //MARK: - ViewLifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
     
     
-    setupRegionForMap()
-    
-    setupNavBarUI()
-    
     mapView.showsUserLocation = true
     mapView.delegate = self
     
-//    setupStardEndDummyAnnotataion()
-//    requestForDirections()
     navigationController?.navigationBar.isHidden = true
+    
+    
+    setupRegionForMap()
+    setupNavBarUI()
+    setupShowRouteButton()
+    
     
   }
   
@@ -50,21 +52,6 @@ class DirectionController: UIViewController {
     
   }
   
-  fileprivate func setupStardEndDummyAnnotataion() {
-    
-    let startAnnotation = MKPointAnnotation()
-    startAnnotation.coordinate = CLLocationCoordinate2D(latitude: 49.420382, longitude: 26.988605)
-    startAnnotation.title = "Start"
-    
-    let endAnnotation = MKPointAnnotation()
-    endAnnotation.coordinate = CLLocationCoordinate2D(latitude: 49.410400, longitude: 26.978805)
-    endAnnotation.title = "End"
-    
-    
-    mapView.addAnnotation(startAnnotation)
-    mapView.addAnnotation(endAnnotation)
-    
-  }
   
   
   fileprivate func requestForDirections() {
@@ -91,17 +78,17 @@ class DirectionController: UIViewController {
       hud.dismiss()
       //Success
       //Iterate throught routes and show alternate routes
-      response?.routes.forEach({ (route) in
-        //need to render in MKMapViewDelegate
-        
-        self.mapView.addOverlay(route.polyline)
-      })
+//      response?.routes.forEach({ (route) in
+//        //need to render in MKMapViewDelegate
+//        self.mapView.addOverlay(route.polyline)
+//      })
       
-      
-      
-      
+      //take only first route
+      if let firstRoute = response?.routes.first {
+        self.mapView.addOverlay(firstRoute.polyline)
+      }
+      self.currentRoute = response?.routes.first
     }
-    
   }
   
   
@@ -156,6 +143,25 @@ class DirectionController: UIViewController {
     startTextField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleChangeStartLocation)))
     endTextField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleChangeEndLocation)))
     
+  }
+  
+  fileprivate func setupShowRouteButton() {
+    let routeButton = UIButton(title: "Show Route", titleColor: .black, font: .boldSystemFont(ofSize: 16), backgroundColor: .white, target: self, action: #selector(handleShowRoute))
+    
+    view.addSubview(routeButton)
+    routeButton.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 16, bottom: 25, right: 16), size: .init(width: 0, height: 50))
+    routeButton.setupShadow(opacity: 0.2, radius: 5, offset: .init(width: 2, height: 2), color: .black)
+    routeButton.layer.cornerRadius = 10
+  }
+  
+  
+  @objc fileprivate func handleShowRoute() {
+    let routesController = RoutesController()
+    guard let route = self.currentRoute?.steps else { return }
+    //bug fix: - first empty cell
+    let routeFilter = route.filter { !$0.instructions.isEmpty }
+    routesController.items = routeFilter
+    present(routesController, animated: true, completion: nil)
   }
   
   
@@ -216,6 +222,8 @@ class DirectionController: UIViewController {
     
   }
 
+  
+  
   
   
   
