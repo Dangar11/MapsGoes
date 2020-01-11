@@ -23,7 +23,7 @@ class LocationsSearchController: LBTAListController<LocationSearchCell, MKMapIte
  
   let navBarHeight: CGFloat = 80
   
-  var textFieldNotification: AnyCancellable?
+  var textFieldNotification: AnyCancellable!
   
   let searchTextField = IndentedTextField(placeholder: "Enter Search Place", padding: 12)
   let backButtonIcon = UIButton(image: #imageLiteral(resourceName: "back").withRenderingMode(.alwaysTemplate), tintColor: .black, target: self, action: #selector(handleBack)).withWidth(50)
@@ -45,6 +45,9 @@ class LocationsSearchController: LBTAListController<LocationSearchCell, MKMapIte
     navigationController?.popViewController(animated: true)
     let mapItem = self.items[indexPath.item]
     selectionHandler?(mapItem)
+    //stop listening to text changes in searchField  in the future
+    //Retain Cycle fix
+       textFieldNotification?.cancel()
   }
   
   
@@ -99,19 +102,21 @@ class LocationsSearchController: LBTAListController<LocationSearchCell, MKMapIte
   }
   
   
+  
   @objc fileprivate func handleBack() {
     navigationController?.popViewController(animated: true)
   }
   
   fileprivate func setupSearchListener() {
     
-    self.textFieldNotification = NotificationCenter.default
+    textFieldNotification = NotificationCenter.default
       .publisher(for: UITextField.textDidChangeNotification, object: searchTextField)
       .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
       .sink { (_) in
         self.performLocalSearch()
     }
-    
+    //stop listening to text changes in searchField  in the future
+       
   }
   
   

@@ -23,7 +23,7 @@ class MapViewController: UIViewController {
   let locationManager = CLLocationManager()
   
   //Combine framework
-  var textFieldNotification: AnyCancellable?
+  var textFieldNotification: AnyCancellable!
   
   let searchTextField = UITextField(placeholder: "Search query")
   

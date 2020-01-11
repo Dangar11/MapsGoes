@@ -171,6 +171,7 @@ class DirectionController: UIViewController {
     }
     
     navigationController?.pushViewController(vc, animated: true)
+    
   }
   
   
