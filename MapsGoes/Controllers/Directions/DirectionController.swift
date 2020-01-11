@@ -157,6 +157,9 @@ class DirectionController: UIViewController {
   
   @objc fileprivate func handleShowRoute() {
     let routesController = RoutesController()
+    
+    routesController.route = currentRoute
+    
     guard let route = self.currentRoute?.steps else { return }
     //bug fix: - first empty cell
     let routeFilter = route.filter { !$0.instructions.isEmpty }
