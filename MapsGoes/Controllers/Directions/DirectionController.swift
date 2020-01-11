@@ -10,6 +10,7 @@ import UIKit
 import LBTATools
 import MapKit
 import SwiftUI
+import JGProgressHUD
 
 class DirectionController: UIViewController {
   
@@ -19,7 +20,8 @@ class DirectionController: UIViewController {
   let startTextField = IndentedTextField(placeholder: "Start", padding: 12, cornerRadius: 5)
   let endTextField = IndentedTextField(placeholder: "End", padding: 12, cornerRadius: 5)
   
-  
+  var startMapItem: MKMapItem?
+  var endMapItem: MKMapItem?
   
   //MARK: - ViewLifecycle
   override func viewDidLoad() {
@@ -33,8 +35,8 @@ class DirectionController: UIViewController {
     mapView.showsUserLocation = true
     mapView.delegate = self
     
-    setupStardEndDummyAnnotataion()
-    requestForDirections()
+//    setupStardEndDummyAnnotataion()
+//    requestForDirections()
     navigationController?.navigationBar.isHidden = true
     
   }
@@ -69,16 +71,16 @@ class DirectionController: UIViewController {
     
     let request = MKDirections.Request()
     
-    let startingPlacemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: 49.420382, longitude: 26.988605))
-    
-    let endingPlacemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: 49.410400, longitude: 26.978805))
-    
     //start point
-    request.source = .init(placemark: startingPlacemark)
+    request.source = startMapItem
     //end point
-    request.destination = .init(placemark: endingPlacemark)
+    request.destination = endMapItem
     
-    request.requestsAlternateRoutes = true
+    let hud = JGProgressHUD(style: .dark)
+    hud.textLabel.text = "Routing..."
+    hud.show(in: view)
+    
+//    request.requestsAlternateRoutes = true
     
     let directions = MKDirections(request: request)
     directions.calculate { (response, error) in
@@ -86,6 +88,7 @@ class DirectionController: UIViewController {
         print("Unable to calculate route: ", error.localizedDescription)
       }
       
+      hud.dismiss()
       //Success
       //Iterate throught routes and show alternate routes
       response?.routes.forEach({ (route) in
@@ -159,22 +162,62 @@ class DirectionController: UIViewController {
   @objc fileprivate func handleChangeStartLocation() {
     let vc = LocationsSearchController()
     vc.selectionHandler = { [weak self] mapItem in
-      self?.startTextField.text = mapItem.name
+      guard let self = self else { return }
+      self.startTextField.text = mapItem.name
+      
+      //add starting annotation and show it in the map
+      self.startMapItem = mapItem
+      self.refreshMap()
     }
     
     navigationController?.pushViewController(vc, animated: true)
   }
+  
+  
   
   @objc fileprivate func handleChangeEndLocation() {
     let vc = LocationsSearchController()
     vc.selectionHandler = { [weak self] mapItem in
-      self?.endTextField.text = mapItem.name
+      guard let self = self else { return }
+      self.endTextField.text = mapItem.name
+      self.endMapItem = mapItem
+      self.refreshMap()
     }
     
     navigationController?.pushViewController(vc, animated: true)
   }
   
+  
+  fileprivate func refreshMap() {
+    
+    
+    // remove everything from map
+    mapView.removeAnnotations(mapView.annotations)
+    mapView.removeOverlays(mapView.overlays)
+    
+    if let mapItem = startMapItem {
+      let annotation = MKPointAnnotation()
+      annotation.coordinate = mapItem.placemark.coordinate
+      annotation.title = mapItem.name
+      self.mapView.addAnnotation(annotation)
+    }
+    
+    if let mapItem = endMapItem {
+      let annotation = MKPointAnnotation()
+      annotation.coordinate = mapItem.placemark.coordinate
+      annotation.title = mapItem.name
+      self.mapView.addAnnotation(annotation)
+    }
+    
+    requestForDirections()
+    
+    mapView.showAnnotations(mapView.annotations, animated: false)
+    
+  }
 
+  
+  
+  
   
 }
 
