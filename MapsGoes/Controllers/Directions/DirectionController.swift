@@ -151,26 +151,30 @@ class DirectionController: UIViewController {
       .withMargins(.init(top: 12, left: 12, bottom: 12, right: 12))
     
     startTextField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleChangeStartLocation)))
+    endTextField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleChangeEndLocation)))
     
   }
   
   
   @objc fileprivate func handleChangeStartLocation() {
-    let vc = UIViewController()
-    vc.view.backgroundColor = .green
+    let vc = LocationsSearchController()
+    vc.selectionHandler = { [weak self] mapItem in
+      self?.startTextField.text = mapItem.name
+    }
     
-    // back button hack
-    let button = UIButton(title: "Back", titleColor: .black, font: .boldSystemFont(ofSize: 14), backgroundColor: .clear, target: self, action: #selector(handleBackButton))
-    vc.view.addSubview(button)
-    button.fillSuperviewSafeAreaLayoutGuide()
     navigationController?.pushViewController(vc, animated: true)
+  }
+  
+  @objc fileprivate func handleChangeEndLocation() {
+    let vc = LocationsSearchController()
+    vc.selectionHandler = { [weak self] mapItem in
+      self?.endTextField.text = mapItem.name
+    }
     
+    navigationController?.pushViewController(vc, animated: true)
   }
   
-  
-  @objc fileprivate func handleBackButton() {
-    navigationController?.popViewController(animated: true)
-  }
+
   
 }
 
