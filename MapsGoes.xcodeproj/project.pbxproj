@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C15B6DD7FA275A61B7300DD /* Pods_MapsGoes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00004B7051CD0B4D4E376703 /* Pods_MapsGoes.framework */; };
 		DD1BA47B23C7C14B0062BD40 /* MapViewController+UserLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1BA47A23C7C14B0062BD40 /* MapViewController+UserLocation.swift */; };
 		DD1BA47E23C7C9E90062BD40 /* Khmelnitskyi.gpx in Resources */ = {isa = PBXBuildFile; fileRef = DD1BA47D23C7C9E90062BD40 /* Khmelnitskyi.gpx */; };
 		DD1BA48023C7CA300062BD40 /* Lviv.gpx in Resources */ = {isa = PBXBuildFile; fileRef = DD1BA47F23C7CA300062BD40 /* Lviv.gpx */; };
@@ -18,6 +19,7 @@
 		DD1BA48E23C9F4B70062BD40 /* RoutesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1BA48D23C9F4B70062BD40 /* RoutesController.swift */; };
 		DD1BA49023C9F4F60062BD40 /* RoutesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1BA48F23C9F4F60062BD40 /* RoutesCell.swift */; };
 		DD1BA49223CA26510062BD40 /* RouteHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1BA49123CA26510062BD40 /* RouteHeader.swift */; };
+		DD4DE41123CE5E8500506F25 /* GooglePlaceCustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4DE41023CE5E8500506F25 /* GooglePlaceCustomAnnotation.swift */; };
 		DD5D255123C745E6000EFD1E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5D255023C745E6000EFD1E /* AppDelegate.swift */; };
 		DD5D255323C745E6000EFD1E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5D255223C745E6000EFD1E /* SceneDelegate.swift */; };
 		DD5D255523C745E6000EFD1E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5D255423C745E6000EFD1E /* ContentView.swift */; };
@@ -29,9 +31,14 @@
 		DD5D256C23C77E93000EFD1E /* MKMapExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5D256B23C77E93000EFD1E /* MKMapExtension.swift */; };
 		DD5D256F23C7AA89000EFD1E /* LocationCarouselController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5D256E23C7AA89000EFD1E /* LocationCarouselController.swift */; };
 		DD5D257123C7AADC000EFD1E /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5D257023C7AADC000EFD1E /* LocationCell.swift */; };
+		DDC8B17F23CA5B3900C2A673 /* PlacesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC8B17E23CA5B3900C2A673 /* PlacesController.swift */; };
+		DDC8B18223CA5B9A00C2A673 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC8B18123CA5B9A00C2A673 /* API.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		00004B7051CD0B4D4E376703 /* Pods_MapsGoes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MapsGoes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		44A64EE79D9EFEDF5079A822 /* Pods-MapsGoes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapsGoes.release.xcconfig"; path = "Target Support Files/Pods-MapsGoes/Pods-MapsGoes.release.xcconfig"; sourceTree = "<group>"; };
+		7E39E202F14EC872D32411D2 /* Pods-MapsGoes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapsGoes.debug.xcconfig"; path = "Target Support Files/Pods-MapsGoes/Pods-MapsGoes.debug.xcconfig"; sourceTree = "<group>"; };
 		DD1BA47A23C7C14B0062BD40 /* MapViewController+UserLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapViewController+UserLocation.swift"; sourceTree = "<group>"; };
 		DD1BA47D23C7C9E90062BD40 /* Khmelnitskyi.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Khmelnitskyi.gpx; sourceTree = "<group>"; };
 		DD1BA47F23C7CA300062BD40 /* Lviv.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Lviv.gpx; sourceTree = "<group>"; };
@@ -42,6 +49,7 @@
 		DD1BA48D23C9F4B70062BD40 /* RoutesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesController.swift; sourceTree = "<group>"; };
 		DD1BA48F23C9F4F60062BD40 /* RoutesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesCell.swift; sourceTree = "<group>"; };
 		DD1BA49123CA26510062BD40 /* RouteHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteHeader.swift; sourceTree = "<group>"; };
+		DD4DE41023CE5E8500506F25 /* GooglePlaceCustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlaceCustomAnnotation.swift; sourceTree = "<group>"; };
 		DD5D254D23C745E6000EFD1E /* MapsGoes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapsGoes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD5D255023C745E6000EFD1E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DD5D255223C745E6000EFD1E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -54,6 +62,8 @@
 		DD5D256B23C77E93000EFD1E /* MKMapExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKMapExtension.swift; sourceTree = "<group>"; };
 		DD5D256E23C7AA89000EFD1E /* LocationCarouselController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCarouselController.swift; sourceTree = "<group>"; };
 		DD5D257023C7AADC000EFD1E /* LocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
+		DDC8B17E23CA5B3900C2A673 /* PlacesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesController.swift; sourceTree = "<group>"; };
+		DDC8B18123CA5B9A00C2A673 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,12 +73,30 @@
 			files = (
 				DD1BA48C23C951C10062BD40 /* JGProgressHUD in Frameworks */,
 				DD5D256923C749EC000EFD1E /* LBTATools in Frameworks */,
+				8C15B6DD7FA275A61B7300DD /* Pods_MapsGoes.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		22EA144BA213047D36147907 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7E39E202F14EC872D32411D2 /* Pods-MapsGoes.debug.xcconfig */,
+				44A64EE79D9EFEDF5079A822 /* Pods-MapsGoes.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		773E517B6514C1F662F8DBFE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				00004B7051CD0B4D4E376703 /* Pods_MapsGoes.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		DD1BA47923C7C0EC0062BD40 /* MapView */ = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +130,8 @@
 			children = (
 				DD5D254F23C745E6000EFD1E /* MapsGoes */,
 				DD5D254E23C745E6000EFD1E /* Products */,
+				22EA144BA213047D36147907 /* Pods */,
+				773E517B6514C1F662F8DBFE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -116,6 +146,7 @@
 		DD5D254F23C745E6000EFD1E /* MapsGoes */ = {
 			isa = PBXGroup;
 			children = (
+				DDC8B18123CA5B9A00C2A673 /* API.swift */,
 				DD1BA47C23C7C8CB0062BD40 /* GPX Location */,
 				DD5D256D23C7AA58000EFD1E /* Views */,
 				DD5D256A23C77E76000EFD1E /* Extension */,
@@ -142,6 +173,7 @@
 		DD5D256423C747C1000EFD1E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				DDC8B17D23CA5B2000C2A673 /* GooglePlaces */,
 				DD1BA48323C901590062BD40 /* Directions */,
 				DD1BA47923C7C0EC0062BD40 /* MapView */,
 				DD5D256E23C7AA89000EFD1E /* LocationCarouselController.swift */,
@@ -165,8 +197,17 @@
 				DD1BA48F23C9F4F60062BD40 /* RoutesCell.swift */,
 				DD1BA48823C934A20062BD40 /* LocationSearchCell.swift */,
 				DD1BA49123CA26510062BD40 /* RouteHeader.swift */,
+				DD4DE41023CE5E8500506F25 /* GooglePlaceCustomAnnotation.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		DDC8B17D23CA5B2000C2A673 /* GooglePlaces */ = {
+			isa = PBXGroup;
+			children = (
+				DDC8B17E23CA5B3900C2A673 /* PlacesController.swift */,
+			);
+			path = GooglePlaces;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -176,9 +217,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DD5D256123C745E9000EFD1E /* Build configuration list for PBXNativeTarget "MapsGoes" */;
 			buildPhases = (
+				70676564E27062DBF6F83A03 /* [CP] Check Pods Manifest.lock */,
 				DD5D254923C745E6000EFD1E /* Sources */,
 				DD5D254A23C745E6000EFD1E /* Frameworks */,
 				DD5D254B23C745E6000EFD1E /* Resources */,
+				3CC9044180370977C22BE95F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -245,6 +288,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3CC9044180370977C22BE95F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MapsGoes/Pods-MapsGoes-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MapsGoes/Pods-MapsGoes-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MapsGoes/Pods-MapsGoes-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		70676564E27062DBF6F83A03 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MapsGoes-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		DD5D254923C745E6000EFD1E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -263,7 +348,10 @@
 				DD1BA49023C9F4F60062BD40 /* RoutesCell.swift in Sources */,
 				DD5D257123C7AADC000EFD1E /* LocationCell.swift in Sources */,
 				DD5D256C23C77E93000EFD1E /* MKMapExtension.swift in Sources */,
+				DDC8B17F23CA5B3900C2A673 /* PlacesController.swift in Sources */,
+				DD4DE41123CE5E8500506F25 /* GooglePlaceCustomAnnotation.swift in Sources */,
 				DD5D255523C745E6000EFD1E /* ContentView.swift in Sources */,
+				DDC8B18223CA5B9A00C2A673 /* API.swift in Sources */,
 				DD1BA47B23C7C14B0062BD40 /* MapViewController+UserLocation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -398,6 +486,7 @@
 		};
 		DD5D256223C745E9000EFD1E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7E39E202F14EC872D32411D2 /* Pods-MapsGoes.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -418,6 +507,7 @@
 		};
 		DD5D256323C745E9000EFD1E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 44A64EE79D9EFEDF5079A822 /* Pods-MapsGoes.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
