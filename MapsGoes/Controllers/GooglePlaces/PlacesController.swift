@@ -100,7 +100,8 @@ extension PlacesController: MKMapViewDelegate {
     if !(annotation is GooglePlaceCustomAnnotation) { return nil }
     
     let annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "id")
-    annotationView.canShowCallout = true
+    
+    
     if let placeAnnotation = annotation as? GooglePlaceCustomAnnotation {
       let types = placeAnnotation.place.types
       //Cheking for places types annotations
@@ -121,18 +122,79 @@ extension PlacesController: MKMapViewDelegate {
     //Refresh
     currentCustomCallout?.removeFromSuperview()
     
-    let customCalloutContainer = UIView(backgroundColor: .red)
-//    customCalloutContainer.frame = .init(x: 0, y: 0, width: 100, height: 200)
+    let customCalloutContainer = UIView(backgroundColor: .white)
+    let imageView = UIImageView()
     
     view.addSubview(customCalloutContainer)
     
     customCalloutContainer.translatesAutoresizingMaskIntoConstraints = false
-    customCalloutContainer.widthAnchor.constraint(equalToConstant: 100).isActive = true
-    customCalloutContainer.heightAnchor.constraint(equalToConstant: 200).isActive = true
+    let widthAnchor = customCalloutContainer.widthAnchor.constraint(equalToConstant: 100)
+    widthAnchor.isActive = true
+    let heightAnchor = customCalloutContainer.heightAnchor.constraint(equalToConstant: 200)
+    heightAnchor.isActive = true
     customCalloutContainer.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     customCalloutContainer.bottomAnchor.constraint(equalTo: view.topAnchor).isActive = true
     
+    
+          
+    customCalloutContainer.layer.borderWidth = 1
+    customCalloutContainer.layer.borderColor = UIColor.black.cgColor
+    customCalloutContainer.layer.cornerRadius = 10
+    customCalloutContainer.layer.masksToBounds = true
+//    customCalloutContainer.setupShadow(opacity: 0.2, radius: 5, offset: .zero, color: .darkGray)
+    
+    
     currentCustomCallout = customCalloutContainer
+    
+    //spinner loading
+    let spinner = UIActivityIndicatorView(style: .large)
+    spinner.color = .darkGray
+    customCalloutContainer.addSubview(spinner)
+    spinner.fillSuperview()
+    spinner.startAnimating()
+    
+    //photo
+    guard let placeId = (view.annotation as? GooglePlaceCustomAnnotation)?.place.placeID else { return }
+    
+    
+    client.lookUpPhotos(forPlaceID: placeId) { [weak self] (metaDataList, error) in
+      guard let self = self else { return }
+      if let error = error {
+        print("Error when fetching photos: ", error.localizedDescription)
+      }
+      
+      //Success
+      guard let firstPhotoMetadata = metaDataList?.results.first else { return }
+      
+      self.client.loadPlacePhoto(firstPhotoMetadata) { (image, error) in
+        if let error = error {
+          print("Failed to load photo from metaDataList: ", error.localizedDescription)
+        }
+        guard let image = image else { return }
+        
+          //Image showing ration
+        if image.size.width > image.size.height {
+          //  w1/h1 = w2/h2
+          let newWidth: CGFloat = 300
+          let newHeight = newWidth / image.size.width * image.size.height
+          widthAnchor.constant = newWidth
+          heightAnchor.constant = newHeight
+        } else if image.size.width < image.size.height {
+          let newHeight: CGFloat = 300
+          let newWidth = newHeight / image.size.height * image.size.width
+          widthAnchor.constant = newWidth
+          heightAnchor.constant = newHeight
+        }
+        
+        
+        //Success
+        imageView.image = image
+        imageView.contentMode = .scaleToFill
+        customCalloutContainer.addSubview(imageView)
+        imageView.fillSuperview()
+        
+      }
+    }
   }
   
 }
