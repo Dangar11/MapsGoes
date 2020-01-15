@@ -33,6 +33,7 @@
 		DD5D257123C7AADC000EFD1E /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5D257023C7AADC000EFD1E /* LocationCell.swift */; };
 		DDC8B17F23CA5B3900C2A673 /* PlacesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC8B17E23CA5B3900C2A673 /* PlacesController.swift */; };
 		DDC8B18223CA5B9A00C2A673 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC8B18123CA5B9A00C2A673 /* API.swift */; };
+		DDCB12CC23CF7332000DAB75 /* CalloutContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCB12CB23CF7332000DAB75 /* CalloutContainer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		DD5D257023C7AADC000EFD1E /* LocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
 		DDC8B17E23CA5B3900C2A673 /* PlacesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesController.swift; sourceTree = "<group>"; };
 		DDC8B18123CA5B9A00C2A673 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		DDCB12CB23CF7332000DAB75 /* CalloutContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalloutContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,6 +200,7 @@
 				DD1BA48823C934A20062BD40 /* LocationSearchCell.swift */,
 				DD1BA49123CA26510062BD40 /* RouteHeader.swift */,
 				DD4DE41023CE5E8500506F25 /* GooglePlaceCustomAnnotation.swift */,
+				DDCB12CB23CF7332000DAB75 /* CalloutContainer.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -336,6 +339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD5D256623C747D8000EFD1E /* MapViewController.swift in Sources */,
+				DDCB12CC23CF7332000DAB75 /* CalloutContainer.swift in Sources */,
 				DD1BA48723C928690062BD40 /* LocationsSearchController.swift in Sources */,
 				DD1BA48E23C9F4B70062BD40 /* RoutesController.swift in Sources */,
 				DD1BA48523C9017E0062BD40 /* DirectionController.swift in Sources */,
