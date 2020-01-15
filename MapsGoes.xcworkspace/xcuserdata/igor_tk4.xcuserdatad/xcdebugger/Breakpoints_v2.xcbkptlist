@@ -3,4 +3,86 @@
    uuid = "7EA6F721-4BD7-4585-8BD8-8F7576F9D2B9"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4CB9302B-08B1-45C0-B20B-5EBE0859DE4D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MapsGoes/Controllers/GooglePlaces/PlacesController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
+            landmarkName = "handlePlacePhoto()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "4CB9302B-08B1-45C0-B20B-5EBE0859DE4D - 227f025ccb120d58"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.GMSPlacePhotoMetadata) -&gt; () in closure #1 (Swift.Optional&lt;__C.GMSPlacePhotoMetadataList&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MapsGoes.PlacesController.(handlePlacePhoto in _81EC45AFD2CFA18B550A654B764F3105)() -&gt; ()"
+                  moduleName = "MapsGoes"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/igor_tk4/Documents/DEVELOPMENT/MapsGoes/MapsGoes/Controllers/GooglePlaces/PlacesController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "110"
+                  endingLineNumber = "110"
+                  offsetFromSymbolStart = "255">
+               </Location>
+               <Location
+                  uuid = "4CB9302B-08B1-45C0-B20B-5EBE0859DE4D - 3c4226e432ae4813"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.UIImage&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #1 (__C.GMSPlacePhotoMetadata) -&gt; () in closure #1 (Swift.Optional&lt;__C.GMSPlacePhotoMetadataList&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MapsGoes.PlacesController.(handlePlacePhoto in _81EC45AFD2CFA18B550A654B764F3105)() -&gt; ()"
+                  moduleName = "MapsGoes"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/igor_tk4/Documents/DEVELOPMENT/MapsGoes/MapsGoes/Controllers/GooglePlaces/PlacesController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "112"
+                  endingLineNumber = "112"
+                  offsetFromSymbolStart = "106">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C40A26F1-8596-4C13-8EC7-52B35B2FC269"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MapsGoes/Controllers/GooglePlaces/PlacesController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
+            landmarkName = "handlePlacePhoto()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BDFAE42D-FF39-4474-BF2B-E4A6AB51AE86"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MapsGoes/Controllers/GooglePlaces/PlacesController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "139"
+            endingLineNumber = "139"
+            landmarkName = "handlePlacePhoto()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

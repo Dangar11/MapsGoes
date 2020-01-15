@@ -34,6 +34,10 @@
 		DDC8B17F23CA5B3900C2A673 /* PlacesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC8B17E23CA5B3900C2A673 /* PlacesController.swift */; };
 		DDC8B18223CA5B9A00C2A673 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC8B18123CA5B9A00C2A673 /* API.swift */; };
 		DDCB12CC23CF7332000DAB75 /* CalloutContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCB12CB23CF7332000DAB75 /* CalloutContainer.swift */; };
+		DDCB12CE23CF7ADD000DAB75 /* PlacesController+MKMapViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCB12CD23CF7ADD000DAB75 /* PlacesController+MKMapViewDelegate.swift */; };
+		DDCB12D023CF7B40000DAB75 /* PlacesController+CLLocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCB12CF23CF7B40000DAB75 /* PlacesController+CLLocationManagerDelegate.swift */; };
+		DDCB12D223CF821D000DAB75 /* PlacePhotosController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCB12D123CF821D000DAB75 /* PlacePhotosController.swift */; };
+		DDCB12D423CF8258000DAB75 /* PlacePhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCB12D323CF8258000DAB75 /* PlacePhotosCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +70,10 @@
 		DDC8B17E23CA5B3900C2A673 /* PlacesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesController.swift; sourceTree = "<group>"; };
 		DDC8B18123CA5B9A00C2A673 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		DDCB12CB23CF7332000DAB75 /* CalloutContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalloutContainer.swift; sourceTree = "<group>"; };
+		DDCB12CD23CF7ADD000DAB75 /* PlacesController+MKMapViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlacesController+MKMapViewDelegate.swift"; sourceTree = "<group>"; };
+		DDCB12CF23CF7B40000DAB75 /* PlacesController+CLLocationManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlacesController+CLLocationManagerDelegate.swift"; sourceTree = "<group>"; };
+		DDCB12D123CF821D000DAB75 /* PlacePhotosController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePhotosController.swift; sourceTree = "<group>"; };
+		DDCB12D323CF8258000DAB75 /* PlacePhotosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePhotosCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +209,7 @@
 				DD1BA49123CA26510062BD40 /* RouteHeader.swift */,
 				DD4DE41023CE5E8500506F25 /* GooglePlaceCustomAnnotation.swift */,
 				DDCB12CB23CF7332000DAB75 /* CalloutContainer.swift */,
+				DDCB12D323CF8258000DAB75 /* PlacePhotosCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -209,6 +218,9 @@
 			isa = PBXGroup;
 			children = (
 				DDC8B17E23CA5B3900C2A673 /* PlacesController.swift */,
+				DDCB12CD23CF7ADD000DAB75 /* PlacesController+MKMapViewDelegate.swift */,
+				DDCB12CF23CF7B40000DAB75 /* PlacesController+CLLocationManagerDelegate.swift */,
+				DDCB12D123CF821D000DAB75 /* PlacePhotosController.swift */,
 			);
 			path = GooglePlaces;
 			sourceTree = "<group>";
@@ -338,6 +350,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDCB12D023CF7B40000DAB75 /* PlacesController+CLLocationManagerDelegate.swift in Sources */,
 				DD5D256623C747D8000EFD1E /* MapViewController.swift in Sources */,
 				DDCB12CC23CF7332000DAB75 /* CalloutContainer.swift in Sources */,
 				DD1BA48723C928690062BD40 /* LocationsSearchController.swift in Sources */,
@@ -349,11 +362,14 @@
 				DD5D255323C745E6000EFD1E /* SceneDelegate.swift in Sources */,
 				DD1BA48923C934A20062BD40 /* LocationSearchCell.swift in Sources */,
 				DD1BA48223C7CE3F0062BD40 /* CustomMapItemAnnotation.swift in Sources */,
+				DDCB12D223CF821D000DAB75 /* PlacePhotosController.swift in Sources */,
 				DD1BA49023C9F4F60062BD40 /* RoutesCell.swift in Sources */,
 				DD5D257123C7AADC000EFD1E /* LocationCell.swift in Sources */,
 				DD5D256C23C77E93000EFD1E /* MKMapExtension.swift in Sources */,
+				DDCB12CE23CF7ADD000DAB75 /* PlacesController+MKMapViewDelegate.swift in Sources */,
 				DDC8B17F23CA5B3900C2A673 /* PlacesController.swift in Sources */,
 				DD4DE41123CE5E8500506F25 /* GooglePlaceCustomAnnotation.swift in Sources */,
+				DDCB12D423CF8258000DAB75 /* PlacePhotosCell.swift in Sources */,
 				DD5D255523C745E6000EFD1E /* ContentView.swift in Sources */,
 				DDC8B18223CA5B9A00C2A673 /* API.swift in Sources */,
 				DD1BA47B23C7C14B0062BD40 /* MapViewController+UserLocation.swift in Sources */,
