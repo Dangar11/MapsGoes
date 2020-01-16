@@ -51,7 +51,6 @@ struct MapSearchingView: View {
   
   //watch for changes occuring in viewModel
   @ObservedObject var viewModel = MapSearchingViewModel()
-  @State var searchQuery = "sushi"
 
   
     var body: some View {
@@ -60,24 +59,14 @@ struct MapSearchingView: View {
           .edgesIgnoringSafeArea(.all)
         VStack(spacing: 12) {
           HStack {
-            Button(action: {
-              //let's perform airport search
-              self.viewModel.performSearch(query: self.searchQuery)
-            }, label: {
-              Text("Search for \(searchQuery)")
-              .padding()
-                .background(Color.white)
-            })
-            Button(action: {
-              self.viewModel.annotations = []
-            }, label: {
-              Text("Clear Annotation")
-              .padding()
-                .background(Color.white)
-            })
+            TextField("SearchTerms", text: $viewModel.searchQuery)
+                       .padding(.horizontal, 16)
+                       .padding(.vertical, 12)
+                       .background(Color.white)
           }
           .shadow(radius: 3)
-          
+          .padding()
+                      
           if viewModel.isSearching {
             Text("Searching...")
           }

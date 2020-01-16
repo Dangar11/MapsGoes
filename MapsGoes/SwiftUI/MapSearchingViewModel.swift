@@ -8,13 +8,31 @@
 
 import SwiftUI
 import MapKit
+import Combine
 
 //track all properties which swiftUI render
 class MapSearchingViewModel: ObservableObject {
   
   //
    @Published var annotations = [MKPointAnnotation]()
-  @Published var isSearching = false
+   @Published var isSearching = false
+   @Published var searchQuery = "" {
+    didSet {
+//      performSearch(query: searchQuery)
+    }
+  }
+  
+  var textFieldNotification: AnyCancellable?
+  
+  init() {
+    print("Initializing view model")
+    //Combine
+    textFieldNotification = $searchQuery.debounce(for: .milliseconds(500), scheduler: RunLoop.main)
+      .sink { [weak self] (searchString) in
+        guard let self = self else { return }
+        self.performSearch(query: searchString)
+    }
+  }
   
     func performSearch(query: String) {
       isSearching = true
@@ -40,6 +58,4 @@ class MapSearchingViewModel: ObservableObject {
         self.isSearching = false
     }
   }
-  
-  
 }

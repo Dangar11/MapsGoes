@@ -161,7 +161,6 @@
 			isa = PBXGroup;
 			children = (
 				DDCB12D523D0D70E000DAB75 /* SwiftUI */,
-				DDC8B18123CA5B9A00C2A673 /* API.swift */,
 				DD1BA47C23C7C8CB0062BD40 /* GPX Location */,
 				DD5D256D23C7AA58000EFD1E /* Views */,
 				DD5D256A23C77E76000EFD1E /* Extension */,
@@ -222,6 +221,7 @@
 		DDC8B17D23CA5B2000C2A673 /* GooglePlaces */ = {
 			isa = PBXGroup;
 			children = (
+				DDC8B18123CA5B9A00C2A673 /* API.swift */,
 				DDC8B17E23CA5B3900C2A673 /* PlacesController.swift */,
 				DDCB12CD23CF7ADD000DAB75 /* PlacesController+MKMapViewDelegate.swift */,
 				DDCB12CF23CF7B40000DAB75 /* PlacesController+CLLocationManagerDelegate.swift */,
