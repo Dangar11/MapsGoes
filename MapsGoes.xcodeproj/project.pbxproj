@@ -38,6 +38,7 @@
 		DDCB12D023CF7B40000DAB75 /* PlacesController+CLLocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCB12CF23CF7B40000DAB75 /* PlacesController+CLLocationManagerDelegate.swift */; };
 		DDCB12D223CF821D000DAB75 /* PlacePhotosController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCB12D123CF821D000DAB75 /* PlacePhotosController.swift */; };
 		DDCB12D423CF8258000DAB75 /* PlacePhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCB12D323CF8258000DAB75 /* PlacePhotosCell.swift */; };
+		DDCB12D723D0D736000DAB75 /* MapSearchingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCB12D623D0D736000DAB75 /* MapSearchingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +75,7 @@
 		DDCB12CF23CF7B40000DAB75 /* PlacesController+CLLocationManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlacesController+CLLocationManagerDelegate.swift"; sourceTree = "<group>"; };
 		DDCB12D123CF821D000DAB75 /* PlacePhotosController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePhotosController.swift; sourceTree = "<group>"; };
 		DDCB12D323CF8258000DAB75 /* PlacePhotosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePhotosCell.swift; sourceTree = "<group>"; };
+		DDCB12D623D0D736000DAB75 /* MapSearchingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +158,7 @@
 		DD5D254F23C745E6000EFD1E /* MapsGoes */ = {
 			isa = PBXGroup;
 			children = (
+				DDCB12D523D0D70E000DAB75 /* SwiftUI */,
 				DDC8B18123CA5B9A00C2A673 /* API.swift */,
 				DD1BA47C23C7C8CB0062BD40 /* GPX Location */,
 				DD5D256D23C7AA58000EFD1E /* Views */,
@@ -223,6 +226,14 @@
 				DDCB12D123CF821D000DAB75 /* PlacePhotosController.swift */,
 			);
 			path = GooglePlaces;
+			sourceTree = "<group>";
+		};
+		DDCB12D523D0D70E000DAB75 /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				DDCB12D623D0D736000DAB75 /* MapSearchingView.swift */,
+			);
+			path = SwiftUI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -372,6 +383,7 @@
 				DDCB12D423CF8258000DAB75 /* PlacePhotosCell.swift in Sources */,
 				DD5D255523C745E6000EFD1E /* ContentView.swift in Sources */,
 				DDC8B18223CA5B9A00C2A673 /* API.swift in Sources */,
+				DDCB12D723D0D736000DAB75 /* MapSearchingView.swift in Sources */,
 				DD1BA47B23C7C14B0062BD40 /* MapViewController+UserLocation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
