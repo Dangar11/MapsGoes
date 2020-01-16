@@ -44,60 +44,50 @@ struct MapViewContainer: UIViewRepresentable {
 
 
 
+
+
+
 struct MapSearchingView: View {
   
+  //watch for changes occuring in viewModel
+  @ObservedObject var viewModel = MapSearchingViewModel()
   @State var searchQuery = "sushi"
-  
-  @State var annotations = [MKPointAnnotation]()
+
   
     var body: some View {
       ZStack(alignment: .top) {
-        MapViewContainer(annotations: annotations)
+        MapViewContainer(annotations: viewModel.annotations)
           .edgesIgnoringSafeArea(.all)
-        HStack {
-          Button(action: {
-            //let's perform airport search
-            self.performSearch(query: self.searchQuery)
-          }, label: {
-            Text("Search for \(searchQuery)")
-            .padding()
-              .background(Color.white)
-          })
-          Button(action: {
-            self.annotations = []
-          }, label: {
-            Text("Clear Annotation")
-            .padding()
-              .background(Color.white)
-          })
+        VStack(spacing: 12) {
+          HStack {
+            Button(action: {
+              //let's perform airport search
+              self.viewModel.performSearch(query: self.searchQuery)
+            }, label: {
+              Text("Search for \(searchQuery)")
+              .padding()
+                .background(Color.white)
+            })
+            Button(action: {
+              self.viewModel.annotations = []
+            }, label: {
+              Text("Clear Annotation")
+              .padding()
+                .background(Color.white)
+            })
+          }
+          .shadow(radius: 3)
+          
+          if viewModel.isSearching {
+            Text("Searching...")
+          }
+          
         }
-        .shadow(radius: 3)
         
       }
   }
       
-      fileprivate func performSearch(query: String) {
-        let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = query
-        let localSearch = MKLocalSearch(request: request)
-        localSearch.start { (response, error) in
-          //Error
-          if let error = error {
-            print("Search query failed: ", error.localizedDescription)
-          }
-          
-          var airportAnnotations = [MKPointAnnotation]()
-          
-          //Success
-          response?.mapItems.forEach({ (mapItem) in
-            let annotation = MKPointAnnotation()
-            annotation.title = mapItem.name
-            annotation.coordinate = mapItem.placemark.coordinate
-            airportAnnotations.append(annotation)
-          })
-          self.annotations = airportAnnotations
-      }
-    }
+ 
 
 
 
