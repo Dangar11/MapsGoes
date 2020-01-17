@@ -13,12 +13,37 @@ import MapKit
 
 struct MapViewContainer: UIViewRepresentable {
   
+  func makeCoordinator() -> MapViewContainer.Coordinator {
+    return Coordinator(mapView: mapView)
+  }
+  
+   
+  
+  // set mapView.delegate
+  class Coordinator: NSObject, MKMapViewDelegate {
+    
+    init(mapView: MKMapView) {
+      super.init()
+      mapView.delegate = self
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+      let pinAnnoationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "id")
+      pinAnnoationView.canShowCallout = true
+      return pinAnnoationView
+    }
+    
+  }
+  
+  
   typealias UIViewType = MKMapView
   
   var annotations = [MKPointAnnotation]()
   var selectedMapItem: MKMapItem?
   
   let mapView = MKMapView()
+  
+
   
   func makeUIView(context: UIViewRepresentableContext<MapViewContainer>) -> MKMapView {
     //setup region
@@ -46,9 +71,9 @@ struct MapViewContainer: UIViewRepresentable {
     }
   }
   
-  
-  
 }
+
+
 
 
 
