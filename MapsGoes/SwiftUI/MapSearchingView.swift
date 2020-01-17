@@ -65,14 +65,13 @@ struct MapSearchingView: View {
           .edgesIgnoringSafeArea(.all)
         VStack(spacing: 12) {
           HStack {
-            TextField("SearchTerms", text: $viewModel.searchQuery, onCommit: {
+            TextField("Search terms", text: $viewModel.searchQuery, onCommit: {
 //              UIApplication.shared.keyWindow?.endEditing(true)
             })
                        .padding(.horizontal, 16)
                        .padding(.vertical, 12)
                        .background(Color.white)
           }
-          .shadow(radius: 3)
           .padding()
                       
           if viewModel.isSearching {
@@ -102,7 +101,8 @@ struct MapSearchingView: View {
           .padding(.horizontal, 16)
           }
           .shadow(radius: 5)
-            
+          
+          Spacer().frame(height: self.viewModel.keyboardHeight)
           
         }
         

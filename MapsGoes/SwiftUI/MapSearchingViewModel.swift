@@ -24,6 +24,8 @@ class MapSearchingViewModel: ObservableObject {
   
   @Published var mapItems = [MKMapItem]()
   @Published var selectedMapItem: MKMapItem?
+  //Keyboard
+  @Published var keyboardHeight: CGFloat = 0
   
   var textFieldNotification: AnyCancellable?
   
@@ -35,9 +37,33 @@ class MapSearchingViewModel: ObservableObject {
         guard let self = self else { return }
         self.performSearch(query: searchString)
     }
+    
+    listenForKeyboardNotification()
+    
   }
   
-    func performSearch(query: String) {
+  fileprivate func listenForKeyboardNotification() {
+    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { [weak self]
+      (notification) in
+      guard let self = self else { return }
+      guard let value = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+      let keyboardFrame = value.cgRectValue
+      let window = UIApplication.shared.windows.filter { $0.isKeyWindow }.first
+      guard let bottomSafeArea = window?.safeAreaInsets.bottom else { return }
+      
+      
+      withAnimation(.easeOut(duration: 0.25)) {
+        self.keyboardHeight = keyboardFrame.height - bottomSafeArea
+      }
+      
+    }
+    
+    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { [weak self] (notification) in
+      self?.keyboardHeight = 0
+    }
+  }
+  
+    fileprivate func performSearch(query: String) {
       isSearching = true
       let request = MKLocalSearch.Request()
       request.naturalLanguageQuery = query
