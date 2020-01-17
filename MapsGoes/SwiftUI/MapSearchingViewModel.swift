@@ -22,6 +22,9 @@ class MapSearchingViewModel: ObservableObject {
     }
   }
   
+  @Published var mapItems = [MKMapItem]()
+  @Published var selectedMapItem: MKMapItem?
+  
   var textFieldNotification: AnyCancellable?
   
   init() {
@@ -44,7 +47,8 @@ class MapSearchingViewModel: ObservableObject {
         if let error = error {
           print("Search query failed: ", error.localizedDescription)
         }
-        
+        guard let resonseItems = response?.mapItems else { return }
+        self.mapItems = resonseItems
         var airportAnnotations = [MKPointAnnotation]()
         
         //Success
