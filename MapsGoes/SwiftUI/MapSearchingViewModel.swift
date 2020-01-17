@@ -34,6 +34,8 @@ class MapSearchingViewModel: NSObject, ObservableObject {
   //user location
   let locationManager = CLLocationManager()
   
+  fileprivate var region: MKCoordinateRegion?
+  
   
   override init() {
     super.init()
@@ -48,6 +50,10 @@ class MapSearchingViewModel: NSObject, ObservableObject {
     locationManager.requestWhenInUseAuthorization()
     
     listenForKeyboardNotification()
+    NotificationCenter.default.addObserver(forName: MapViewContainer.Coordinator.regionChangedNotification, object: nil, queue: .main) { [weak self] (notification) in
+      guard let self = self else { return }
+      self.region = notification.object as? MKCoordinateRegion
+    }
     
   }
   
@@ -72,10 +78,14 @@ class MapSearchingViewModel: NSObject, ObservableObject {
     }
   }
   
+  
     fileprivate func performSearch(query: String) {
       isSearching = true
       let request = MKLocalSearch.Request()
       request.naturalLanguageQuery = query
+      guard let regionLocation = region else { return }
+      request.region = regionLocation
+      
       let localSearch = MKLocalSearch(request: request)
       localSearch.start { (response, error) in
         //Error
