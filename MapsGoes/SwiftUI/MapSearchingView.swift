@@ -13,6 +13,53 @@ import MapKit
 
 struct MapViewContainer: UIViewRepresentable {
   
+  
+  
+  typealias UIViewType = MKMapView
+  
+  var annotations = [MKPointAnnotation]()
+  var selectedMapItem: MKMapItem?
+  var currentLocation = CLLocationCoordinate2D(latitude: 50.439833, longitude: 30.540917)
+  
+  let mapView = MKMapView()
+  
+
+  
+  func makeUIView(context: UIViewRepresentableContext<MapViewContainer>) -> MKMapView {
+    //setup region
+    setupRegionForMap()
+    mapView.showsUserLocation = true
+    return mapView
+  }
+  
+  fileprivate func setupRegionForMap() {
+    let centerCoordinate = CLLocationCoordinate2D(latitude: 50.439833, longitude: 30.540917)
+    let span = MKCoordinateSpan(latitudeDelta: 0.3, longitudeDelta: 0.3)
+    let region = MKCoordinateRegion(center: centerCoordinate, span: span)
+    mapView.setRegion(region, animated: true)
+    
+  }
+  
+  func updateUIView(_ uiView: MKMapView, context: UIViewRepresentableContext<MapViewContainer>) {
+    
+    let span = MKCoordinateSpan(latitudeDelta: 0.3, longitudeDelta: 0.3)
+    let region = MKCoordinateRegion(center: currentLocation, span: span)
+    uiView.setRegion(region, animated: true)
+  
+    
+    uiView.removeAnnotations(uiView.annotations)
+    uiView.addAnnotations(annotations)
+    uiView.showAnnotations(uiView.annotations, animated: true)
+    
+    uiView.annotations.forEach { (annotation) in
+      if annotation.title == selectedMapItem?.name {
+        uiView.selectAnnotation(annotation, animated: true)
+      }
+    }
+  }
+  
+  
+  //MARK: Coordinator
   func makeCoordinator() -> MapViewContainer.Coordinator {
     return Coordinator(mapView: mapView)
   }
@@ -28,6 +75,7 @@ struct MapViewContainer: UIViewRepresentable {
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+      if !(annotation is MKPointAnnotation) { return nil }
       let pinAnnoationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "id")
       pinAnnoationView.canShowCallout = true
       return pinAnnoationView
@@ -35,41 +83,6 @@ struct MapViewContainer: UIViewRepresentable {
     
   }
   
-  
-  typealias UIViewType = MKMapView
-  
-  var annotations = [MKPointAnnotation]()
-  var selectedMapItem: MKMapItem?
-  
-  let mapView = MKMapView()
-  
-
-  
-  func makeUIView(context: UIViewRepresentableContext<MapViewContainer>) -> MKMapView {
-    //setup region
-    setupRegionForMap()
-    return mapView
-  }
-  
-  fileprivate func setupRegionForMap() {
-    let centerCoordinate = CLLocationCoordinate2D(latitude: 50.439833, longitude: 30.540917)
-    let span = MKCoordinateSpan(latitudeDelta: 0.3, longitudeDelta: 0.3)
-    let region = MKCoordinateRegion(center: centerCoordinate, span: span)
-    mapView.setRegion(region, animated: true)
-    
-  }
-  
-  func updateUIView(_ uiView: MKMapView, context: UIViewRepresentableContext<MapViewContainer>) {
-    uiView.removeAnnotations(uiView.annotations)
-    uiView.addAnnotations(annotations)
-    uiView.showAnnotations(uiView.annotations, animated: true)
-    
-    uiView.annotations.forEach { (annotation) in
-      if annotation.title == selectedMapItem?.name {
-        uiView.selectAnnotation(annotation, animated: true)
-      }
-    }
-  }
   
 }
 
@@ -86,7 +99,8 @@ struct MapSearchingView: View {
   
     var body: some View {
       ZStack(alignment: .top) {
-        MapViewContainer(annotations: viewModel.annotations, selectedMapItem: viewModel.selectedMapItem)
+        
+        MapViewContainer(annotations: viewModel.annotations, selectedMapItem: viewModel.selectedMapItem, currentLocation: viewModel.currentLocation)
           .edgesIgnoringSafeArea(.all)
         VStack(spacing: 12) {
           HStack {

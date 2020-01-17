@@ -11,7 +11,7 @@ import MapKit
 import Combine
 
 //track all properties which swiftUI render
-class MapSearchingViewModel: ObservableObject {
+class MapSearchingViewModel: NSObject, ObservableObject {
   
   //
    @Published var annotations = [MKPointAnnotation]()
@@ -26,17 +26,26 @@ class MapSearchingViewModel: ObservableObject {
   @Published var selectedMapItem: MKMapItem?
   //Keyboard
   @Published var keyboardHeight: CGFloat = 0
+  @Published var currentLocation = CLLocationCoordinate2D(latitude: 50.439833, longitude: 30.540917)
   
   var textFieldNotification: AnyCancellable?
   
-  init() {
-    print("Initializing view model")
+  
+  //user location
+  let locationManager = CLLocationManager()
+  
+  
+  override init() {
+    super.init()
     //Combine
     textFieldNotification = $searchQuery.debounce(for: .milliseconds(500), scheduler: RunLoop.main)
       .sink { [weak self] (searchString) in
         guard let self = self else { return }
         self.performSearch(query: searchString)
     }
+    
+    locationManager.delegate = self
+    locationManager.requestWhenInUseAuthorization()
     
     listenForKeyboardNotification()
     
@@ -88,4 +97,21 @@ class MapSearchingViewModel: ObservableObject {
         self.isSearching = false
     }
   }
+}
+
+
+extension MapSearchingViewModel: CLLocationManagerDelegate {
+  
+  
+  func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    if status == .authorizedWhenInUse {
+      locationManager.startUpdatingLocation()
+    }
+  }
+  
+  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    guard let firstLocation = locations.first else { return }
+    self.currentLocation = firstLocation.coordinate
+  }
+  
 }
