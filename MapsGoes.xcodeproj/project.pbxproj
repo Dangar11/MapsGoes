@@ -19,6 +19,7 @@
 		DD1BA48E23C9F4B70062BD40 /* RoutesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1BA48D23C9F4B70062BD40 /* RoutesController.swift */; };
 		DD1BA49023C9F4F60062BD40 /* RoutesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1BA48F23C9F4F60062BD40 /* RoutesCell.swift */; };
 		DD1BA49223CA26510062BD40 /* RouteHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1BA49123CA26510062BD40 /* RouteHeader.swift */; };
+		DD42613323D3450F002F5B51 /* DirectionsSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD42613223D3450F002F5B51 /* DirectionsSearchView.swift */; };
 		DD4DE41123CE5E8500506F25 /* GooglePlaceCustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4DE41023CE5E8500506F25 /* GooglePlaceCustomAnnotation.swift */; };
 		DD5D255123C745E6000EFD1E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5D255023C745E6000EFD1E /* AppDelegate.swift */; };
 		DD5D255323C745E6000EFD1E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5D255223C745E6000EFD1E /* SceneDelegate.swift */; };
@@ -56,6 +57,7 @@
 		DD1BA48D23C9F4B70062BD40 /* RoutesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesController.swift; sourceTree = "<group>"; };
 		DD1BA48F23C9F4F60062BD40 /* RoutesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesCell.swift; sourceTree = "<group>"; };
 		DD1BA49123CA26510062BD40 /* RouteHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteHeader.swift; sourceTree = "<group>"; };
+		DD42613223D3450F002F5B51 /* DirectionsSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsSearchView.swift; sourceTree = "<group>"; };
 		DD4DE41023CE5E8500506F25 /* GooglePlaceCustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlaceCustomAnnotation.swift; sourceTree = "<group>"; };
 		DD5D254D23C745E6000EFD1E /* MapsGoes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapsGoes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD5D255023C745E6000EFD1E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -137,6 +139,23 @@
 				DD1BA48623C928690062BD40 /* LocationsSearchController.swift */,
 			);
 			path = Directions;
+			sourceTree = "<group>";
+		};
+		DD42612E23D344C6002F5B51 /* MapSearchView */ = {
+			isa = PBXGroup;
+			children = (
+				DDCB12D623D0D736000DAB75 /* MapSearchingView.swift */,
+				DDCB12D823D111C6000DAB75 /* MapSearchingViewModel.swift */,
+			);
+			path = MapSearchView;
+			sourceTree = "<group>";
+		};
+		DD42612F23D344D7002F5B51 /* DirectionsSearchView */ = {
+			isa = PBXGroup;
+			children = (
+				DD42613223D3450F002F5B51 /* DirectionsSearchView.swift */,
+			);
+			path = DirectionsSearchView;
 			sourceTree = "<group>";
 		};
 		DD5D254423C745E6000EFD1E = {
@@ -233,8 +252,8 @@
 		DDCB12D523D0D70E000DAB75 /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
-				DDCB12D623D0D736000DAB75 /* MapSearchingView.swift */,
-				DDCB12D823D111C6000DAB75 /* MapSearchingViewModel.swift */,
+				DD42612F23D344D7002F5B51 /* DirectionsSearchView */,
+				DD42612E23D344C6002F5B51 /* MapSearchView */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -368,6 +387,7 @@
 				DD5D256623C747D8000EFD1E /* MapViewController.swift in Sources */,
 				DDCB12CC23CF7332000DAB75 /* CalloutContainer.swift in Sources */,
 				DD1BA48723C928690062BD40 /* LocationsSearchController.swift in Sources */,
+				DD42613323D3450F002F5B51 /* DirectionsSearchView.swift in Sources */,
 				DD1BA48E23C9F4B70062BD40 /* RoutesController.swift in Sources */,
 				DD1BA48523C9017E0062BD40 /* DirectionController.swift in Sources */,
 				DD5D255123C745E6000EFD1E /* AppDelegate.swift in Sources */,
