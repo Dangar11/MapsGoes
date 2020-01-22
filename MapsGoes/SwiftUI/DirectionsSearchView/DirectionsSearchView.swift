@@ -125,35 +125,10 @@ class DirectionEnvironment: ObservableObject {
         ZStack(alignment: .top) {
           VStack(spacing: 0) {
             VStack(spacing: 12) {
-              HStack(spacing: 16) {
-                Image(uiImage: #imageLiteral(resourceName: "start").withRenderingMode(.alwaysTemplate)).resizable()
-                  .frame(width: 32, height: 32)
-                  .foregroundColor(.white)
-                NavigationLink(destination: SelectLocationView(), isActive: $environment.isSelectingSource) {
-                  HStack {
-                    Text(environment.selectedSourceMapItem != nil ?
-                      (environment.selectedSourceMapItem?.name ?? "") : "Source")
-                    Spacer()
-                  }
-                  .padding()
-                  .background(Color.white)
-                  .cornerRadius(5)
-                }
-              }
-              HStack(spacing: 16) {
-                Image(uiImage: #imageLiteral(resourceName: "end").withRenderingMode(.alwaysTemplate)).resizable()
-                  .frame(width: 32, height: 32)
-                  .foregroundColor(.white)
-                NavigationLink(destination: SelectLocationView(), isActive: $environment.isSelectingDestination) {
-                  HStack {
-                    Text(environment.destinationMapItem != nil ? (environment.destinationMapItem?.name ?? "") : "Destination")
-                    Spacer()
-                  }
-                  .padding()
-                  .background(Color.white)
-                  .cornerRadius(5)
-                }
-              }
+              MapItemView(selectingSource: $environment.isSelectingSource, title: environment.selectedSourceMapItem != nil ?
+                (environment.selectedSourceMapItem?.name ?? "") : "Source", image: #imageLiteral(resourceName: "start"))
+              MapItemView(selectingSource: $environment.isSelectingDestination, title: environment.destinationMapItem != nil ?
+                (environment.destinationMapItem?.name ?? "") : "Destination", image: #imageLiteral(resourceName: "end"))
             }
             .padding()
             .background(Color.blue)
@@ -161,21 +136,53 @@ class DirectionEnvironment: ObservableObject {
             DirectionMapView()
               .edgesIgnoringSafeArea(.bottom)
           }
-          
           //status bar cover up
-          
-          Spacer().frame(width: UIApplication.shared.windows.filter{$0.isKeyWindow}.first?.frame.width,
-                         height: UIApplication.shared.windows.filter{$0.isKeyWindow}.first?.safeAreaInsets.top)
-            .background(Color.blue)
-            .edgesIgnoringSafeArea(.top)
-          
+          StatusBarCover()
         }
         .navigationBarTitle("Directions")
         .navigationBarHidden(true)
       }
     }
 }
+
+
+struct MapItemView: View {
   
+  @EnvironmentObject var environment: DirectionEnvironment
+  
+  @Binding var selectingSource: Bool
+  var title: String
+  var image: UIImage
+  
+  var body: some View {
+    HStack(spacing: 16) {
+                   Image(uiImage: image.withRenderingMode(.alwaysTemplate)).resizable()
+                     .frame(width: 32, height: 32)
+                     .foregroundColor(.white)
+                   NavigationLink(destination: SelectLocationView(), isActive: $selectingSource) {
+                     HStack {
+                      Text(title)
+                       Spacer()
+                     }
+                     .padding()
+                     .background(Color.white)
+                     .cornerRadius(5)
+                   }
+                 }
+  }
+}
+
+
+  
+
+struct StatusBarCover: View {
+  var body: some View {
+    Spacer().frame(width: UIApplication.shared.windows.filter{$0.isKeyWindow}.first?.frame.width,
+                 height: UIApplication.shared.windows.filter{$0.isKeyWindow}.first?.safeAreaInsets.top)
+    .background(Color.blue)
+    .edgesIgnoringSafeArea(.top)
+  }
+}
   
   
   struct DirectionsSearchView_Previews: PreviewProvider {
