@@ -14,16 +14,64 @@ import Combine
 
 struct DirectionMapView: UIViewRepresentable {
   
+  
+  @EnvironmentObject var environment: DirectionEnvironment
+  
   typealias UIViewType = MKMapView
   
+  let mapView = MKMapView()
+  
+  
+  
+  func makeCoordinator() -> DirectionMapView.Coordinator {
+    return Coordinator(mapView: mapView)
+  }
+  
+  //It's works like delegate pattern but with initializer, inherit from UIViewRepresentable
+  class Coordinator: NSObject, MKMapViewDelegate {
+    
+    init(mapView: MKMapView) {
+      super.init()
+      mapView.delegate = self
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+      let renderer = MKPolylineRenderer(overlay: overlay)
+      renderer.strokeColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+      renderer.lineWidth = 5
+      return renderer
+    }
+    
+  }
   
   func makeUIView(context: UIViewRepresentableContext<DirectionMapView>) -> MKMapView {
-    MKMapView()
+    mapView
+    
   }
   
   func updateUIView(_ uiView: MKMapView, context: UIViewRepresentableContext<DirectionMapView>) {
     
+    uiView.removeAnnotations(uiView.annotations)
+    uiView.removeOverlays(uiView.overlays)
+    
+    //Remove all optionals with compactMap and go loop thought all environment mapItem information
+    [environment.selectedSourceMapItem, environment.destinationMapItem].compactMap{$0}.forEach { (mapItem) in
+      let annotation = MKPointAnnotation()
+      annotation.title = mapItem.name
+      annotation.coordinate = mapItem.placemark.coordinate
+      uiView.addAnnotation(annotation)
+    }
+  
+  
+    //Show on map two placemark
+    uiView.showAnnotations(uiView.annotations, animated: true)
+    
+    //Show route
+    guard let route = environment.route else { return }
+    uiView.addOverlay(route.polyline)
   }
+  
+  
 }
 
 
@@ -35,6 +83,30 @@ class DirectionEnvironment: ObservableObject {
   
   @Published var isSelectingSource = false
   @Published var isSelectingDestination = false
+  
+  @Published var route: MKRoute?
+  
+  var cancellable: AnyCancellable?
+  
+  init() {
+    //listen for changes in selectedSourceMapItem, destinationMapItem
+    cancellable = Publishers.CombineLatest($selectedSourceMapItem, $destinationMapItem).sink { (items) in
+      //route directions calculation
+      let request = MKDirections.Request()
+      request.source = items.0
+      request.destination = items.1
+      let directions = MKDirections(request: request)
+      directions.calculate { [weak self] (response, error) in
+        guard let self = self else { return }
+        //Error
+        if let error = error {
+          print("Failed to calculate a routes directions: ", error)
+        }
+        //Success
+        self.route = response?.routes.first
+      }
+    }
+  }
   
 }
 
