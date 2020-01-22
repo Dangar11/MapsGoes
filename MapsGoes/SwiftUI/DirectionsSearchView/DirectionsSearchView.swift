@@ -10,6 +10,8 @@ import SwiftUI
 import MapKit
 import Combine
 
+
+
 struct DirectionMapView: UIViewRepresentable {
   
   typealias UIViewType = MKMapView
@@ -25,10 +27,103 @@ struct DirectionMapView: UIViewRepresentable {
 }
 
 
+// application brain keep tracking
+class DirectionEnvironment: ObservableObject {
+  
+  @Published var selectedSourceMapItem: MKMapItem?
+  @Published var destinationMapItem: MKMapItem?
+  
+  @Published var isSelectingSource = false
+  @Published var isSelectingDestination = false
+  
+}
+
+
+//MARK: Direction View Screen
+  
+  
+  struct DirectionsSearchView: View {
+    
+    @EnvironmentObject var environment: DirectionEnvironment
+    
+    
+    var body: some View {
+      
+      NavigationView {
+        ZStack(alignment: .top) {
+          VStack(spacing: 0) {
+            VStack(spacing: 12) {
+              HStack(spacing: 16) {
+                Image(uiImage: #imageLiteral(resourceName: "start").withRenderingMode(.alwaysTemplate)).resizable()
+                  .frame(width: 32, height: 32)
+                  .foregroundColor(.white)
+                NavigationLink(destination: SelectLocationView(), isActive: $environment.isSelectingSource) {
+                  HStack {
+                    Text(environment.selectedSourceMapItem != nil ?
+                      (environment.selectedSourceMapItem?.name ?? "") : "Source")
+                    Spacer()
+                  }
+                  .padding()
+                  .background(Color.white)
+                  .cornerRadius(5)
+                }
+              }
+              HStack(spacing: 16) {
+                Image(uiImage: #imageLiteral(resourceName: "end").withRenderingMode(.alwaysTemplate)).resizable()
+                  .frame(width: 32, height: 32)
+                  .foregroundColor(.white)
+                NavigationLink(destination: SelectLocationView(), isActive: $environment.isSelectingDestination) {
+                  HStack {
+                    Text(environment.destinationMapItem != nil ? (environment.destinationMapItem?.name ?? "") : "Destination")
+                    Spacer()
+                  }
+                  .padding()
+                  .background(Color.white)
+                  .cornerRadius(5)
+                }
+              }
+            }
+            .padding()
+            .background(Color.blue)
+            
+            DirectionMapView()
+              .edgesIgnoringSafeArea(.bottom)
+          }
+          
+          //status bar cover up
+          
+          Spacer().frame(width: UIApplication.shared.windows.filter{$0.isKeyWindow}.first?.frame.width,
+                         height: UIApplication.shared.windows.filter{$0.isKeyWindow}.first?.safeAreaInsets.top)
+            .background(Color.blue)
+            .edgesIgnoringSafeArea(.top)
+          
+        }
+        .navigationBarTitle("Directions")
+        .navigationBarHidden(true)
+      }
+    }
+}
+  
+  
+  
+  struct DirectionsSearchView_Previews: PreviewProvider {
+    
+    static var environment = DirectionEnvironment()
+    
+    static var previews: some View {
+      DirectionsSearchView().environmentObject(environment)
+    }
+}
+
+
+//MARK: - Selection View Screen
+
 struct SelectLocationView: View {
   
+  @EnvironmentObject var environment: DirectionEnvironment
+  
   // here is the magic
-  @Binding var isShowing: Bool
+//  @Binding var isShowing: Bool
   
   @State var mapItems = [MKMapItem]()
   
@@ -39,8 +134,9 @@ struct SelectLocationView: View {
       HStack(spacing: 16) {
         Button(action: {
           
-          // need to dismiss this view somehow???
-          self.isShowing = false
+          // dismiss view
+          self.environment.isSelectingSource = false
+          self.environment.isSelectingDestination = false
           
         }, label: {
           Image(uiImage: #imageLiteral(resourceName: "back").withRenderingMode(.alwaysTemplate)).resizable()
@@ -68,15 +164,29 @@ struct SelectLocationView: View {
         if mapItems.count > 0 {
           ScrollView {
             ForEach(mapItems, id: \.self) { item in
-              HStack {
-                VStack(alignment: .leading) {
-                  Text("\(item.name ?? "")")
-                    .font(.headline)
-                  Text("\(item.address())")
+              Button(action: {
+                if self.environment.isSelectingSource {
+                  //dismiss view
+                  self.environment.isSelectingSource = false
+                  //pass value from search
+                  self.environment.selectedSourceMapItem = item
+                } else {
+                  self.environment.isSelectingDestination = false
+                  self.environment.destinationMapItem  = item
                 }
-                Spacer()
+                
+              }) {
+                HStack {
+                  VStack(alignment: .leading) {
+                    Text("\(item.name ?? "")")
+                      .font(.headline)
+                    Text("\(item.address())")
+                  }
+                  Spacer()
+                }
+                .padding()
               }
-              .padding()
+              .foregroundColor(.black)
             }
           }
         }
@@ -87,73 +197,4 @@ struct SelectLocationView: View {
       .navigationBarHidden(true)
     }
   }
-
-  
-  
-  struct DirectionsSearchView: View {
-    
-    
-    @State var isSelectingSource = false
-    
-    var body: some View {
-      
-      NavigationView {
-        ZStack(alignment: .top) {
-          VStack(spacing: 0) {
-            VStack {
-              HStack(spacing: 16) {
-                Image(uiImage: #imageLiteral(resourceName: "start").withRenderingMode(.alwaysTemplate)).resizable()
-                  .frame(width: 32, height: 32)
-                  .foregroundColor(.white)
-                NavigationLink(destination: SelectLocationView(isShowing: $isSelectingSource), isActive: $isSelectingSource) {
-                  HStack {
-                    Text("Source")
-                    Spacer()
-                  }
-                  .padding()
-                  .background(Color.white)
-                  .cornerRadius(5)
-                }
-              }
-              HStack(spacing: 16) {
-                Image(uiImage: #imageLiteral(resourceName: "end").withRenderingMode(.alwaysTemplate)).resizable()
-                  .frame(width: 32, height: 32)
-                  .foregroundColor(.white)
-                HStack {
-                  Text("Destination")
-                  Spacer()
-                }
-                .padding()
-                .background(Color.white)
-                .cornerRadius(5)
-              }
-            }
-            .padding()
-            .background(Color.blue)
-            
-            DirectionMapView()
-              .edgesIgnoringSafeArea(.bottom)
-          }
-          
-          //status bar cover up
-          
-          Spacer().frame(width: UIApplication.shared.windows.filter{$0.isKeyWindow}.first?.frame.width,
-                         height: UIApplication.shared.windows.filter{$0.isKeyWindow}.first?.safeAreaInsets.top)
-            .background(Color.blue)
-            .edgesIgnoringSafeArea(.top)
-          
-        }
-        .navigationBarTitle("Directions")
-        .navigationBarHidden(true)
-      }
-    }
-  }
-  
-  
-  
-  struct DirectionsSearchView_Previews: PreviewProvider {
-    static var previews: some View {
-      DirectionsSearchView()
-    }
-}
 
