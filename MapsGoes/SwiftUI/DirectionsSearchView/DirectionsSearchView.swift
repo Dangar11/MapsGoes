@@ -78,6 +78,8 @@ struct DirectionMapView: UIViewRepresentable {
 // application brain keep tracking
 class DirectionEnvironment: ObservableObject {
   
+  @Published var isCalculationDirections = false
+  
   @Published var selectedSourceMapItem: MKMapItem?
   @Published var destinationMapItem: MKMapItem?
   
@@ -90,12 +92,17 @@ class DirectionEnvironment: ObservableObject {
   
   init() {
     //listen for changes in selectedSourceMapItem, destinationMapItem
-    cancellable = Publishers.CombineLatest($selectedSourceMapItem, $destinationMapItem).sink { (items) in
+    cancellable = Publishers.CombineLatest($selectedSourceMapItem, $destinationMapItem).sink {[weak self] (items) in
+      guard let self = self else { return }
       //route directions calculation
       let request = MKDirections.Request()
       request.source = items.0
       request.destination = items.1
       let directions = MKDirections(request: request)
+      self.isCalculationDirections = true
+      //clear the old route when building a new route
+      self.route = nil
+      
       directions.calculate { [weak self] (response, error) in
         guard let self = self else { return }
         //Error
@@ -103,6 +110,7 @@ class DirectionEnvironment: ObservableObject {
           print("Failed to calculate a routes directions: ", error)
         }
         //Success
+        self.isCalculationDirections = false
         self.route = response?.routes.first
       }
     }
@@ -125,8 +133,10 @@ class DirectionEnvironment: ObservableObject {
         ZStack(alignment: .top) {
           VStack(spacing: 0) {
             VStack(spacing: 12) {
+              
               MapItemView(selectingSource: $environment.isSelectingSource, title: environment.selectedSourceMapItem != nil ?
                 (environment.selectedSourceMapItem?.name ?? "") : "Source", image: #imageLiteral(resourceName: "start"))
+              
               MapItemView(selectingSource: $environment.isSelectingDestination, title: environment.destinationMapItem != nil ?
                 (environment.destinationMapItem?.name ?? "") : "Destination", image: #imageLiteral(resourceName: "end"))
             }
@@ -138,6 +148,10 @@ class DirectionEnvironment: ObservableObject {
           }
           //status bar cover up
           StatusBarCover()
+          
+          if environment.isCalculationDirections {
+             ActivityIndicatorView()
+          }
         }
         .navigationBarTitle("Directions")
         .navigationBarHidden(true)
@@ -145,6 +159,41 @@ class DirectionEnvironment: ObservableObject {
     }
 }
 
+
+struct LoadingHUD: UIViewRepresentable {
+  typealias UIViewType = UIActivityIndicatorView
+  
+  func makeUIView(context: UIViewRepresentableContext<LoadingHUD>) -> UIActivityIndicatorView {
+    let activityIndicator = UIActivityIndicatorView(style: .large)
+    activityIndicator.color = .white
+    activityIndicator.startAnimating()
+    return activityIndicator
+  }
+  
+  func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<LoadingHUD>) {
+    
+  }
+}
+
+
+struct ActivityIndicatorView: View {
+  
+  var body: some View {
+  VStack {
+    Spacer()
+    VStack {
+      LoadingHUD()
+      Text("Loading...").foregroundColor(.white)
+        .font(.headline)
+    }
+  .padding()
+    .background(Color.black)
+    .cornerRadius(5)
+    Spacer()
+  }
+  }
+  
+}
 
 struct MapItemView: View {
   
