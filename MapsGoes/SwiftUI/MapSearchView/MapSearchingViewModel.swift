@@ -16,11 +16,7 @@ class MapSearchingViewModel: NSObject, ObservableObject {
   //
    @Published var annotations = [MKPointAnnotation]()
    @Published var isSearching = false
-   @Published var searchQuery = "" {
-    didSet {
-//      performSearch(query: searchQuery)
-    }
-  }
+   @Published var searchQuery = ""
   
   @Published var mapItems = [MKMapItem]()
   @Published var selectedMapItem: MKMapItem?
@@ -81,6 +77,7 @@ class MapSearchingViewModel: NSObject, ObservableObject {
   
     fileprivate func performSearch(query: String) {
       isSearching = true
+      
       let request = MKLocalSearch.Request()
       request.naturalLanguageQuery = query
       guard let regionLocation = region else { return }
@@ -88,6 +85,7 @@ class MapSearchingViewModel: NSObject, ObservableObject {
       
       let localSearch = MKLocalSearch(request: request)
       localSearch.start { (response, error) in
+        
         //Error
         if let error = error {
           print("Search query failed: ", error.localizedDescription)
@@ -103,9 +101,10 @@ class MapSearchingViewModel: NSObject, ObservableObject {
           annotation.coordinate = mapItem.placemark.coordinate
           airportAnnotations.append(annotation)
         })
-        self.annotations = airportAnnotations
         self.isSearching = false
+        self.annotations = airportAnnotations
     }
+      
   }
 }
 

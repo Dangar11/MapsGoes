@@ -22,8 +22,7 @@ extension PlacesController: CLLocationManagerDelegate {
   
   func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     guard let first = locations.first else { return }
-    let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
-    let region = MKCoordinateRegion(center: first.coordinate, span: span)
+    let region = MKCoordinateRegion(center: first.coordinate, latitudinalMeters: 100, longitudinalMeters: 100)
     mapView.setRegion(region, animated: true)
     
     findNearbyPlaces()

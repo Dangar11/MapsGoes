@@ -45,7 +45,7 @@ class DirectionController: UIViewController {
   
   //MARK: - Functionality
   fileprivate func setupRegionForMap() {
-    let centerCoordinate = CLLocationCoordinate2D(latitude: 49.420382, longitude: 26.988605)
+    let centerCoordinate = CLLocationCoordinate2D(latitude: 49.841393, longitude: 24.032558)
     let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
     let region = MKCoordinateRegion(center: centerCoordinate, span: span)
     mapView.setRegion(region, animated: true)

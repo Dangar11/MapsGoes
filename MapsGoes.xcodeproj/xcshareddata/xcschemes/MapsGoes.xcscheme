@@ -51,7 +51,7 @@
          </BuildableReference>
       </BuildableProductRunnable>
       <LocationScenarioReference
-         identifier = "../MapsGoes/GPX Location/Khmelnitskyi.gpx"
+         identifier = "../MapsGoes/GPX Location/Lviv.gpx"
          referenceType = "0">
       </LocationScenarioReference>
    </LaunchAction>

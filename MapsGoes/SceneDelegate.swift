@@ -24,9 +24,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // Use a UIHostingController as window root view controller.
     if let windowScene = scene as? UIWindowScene {
         let window = UIWindow(windowScene: windowScene)
-      window.rootViewController = UIHostingController(rootView: DirectionsSearchView().environmentObject(DirectionEnvironment()))
+      //Swift UI
+//      window.rootViewController = UIHostingController(rootView: DirectionsSearchView().environmentObject(DirectionEnvironment()))
+//      window.rootViewController = UIHostingController(rootView: MapSearchingView())
+      //UIKit
 //      window.rootViewController = UINavigationController(rootViewController: DirectionController())
-//      window.rootViewController = PlacesController()
+//        window.rootViewController = MapViewController()
         self.window = window
         window.makeKeyAndVisible()
     }
